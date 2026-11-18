@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-script: "Caveat", cursive;
+
+  --color-sun: #ffc61a;
+  --color-sun-deep: #f0b400;
+  --color-sun-soft: #fff6d6;
+  --color-navy: #0c1526;
+  --color-navy-2: #13203a;
+  --color-ink: #14181f;
+  --color-muted: #5b6472;
+  --color-cream: #fffbf2;
+  --color-line: rgba(12, 21, 38, 0.1);
+}
+
+@font-face { font-family: "Poppins"; src: url("/fonts/poppins-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Poppins"; src: url("/fonts/poppins-500.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Poppins"; src: url("/fonts/poppins-600.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Poppins"; src: url("/fonts/poppins-700.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Poppins"; src: url("/fonts/poppins-800.woff2") format("woff2"); font-weight: 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Caveat"; src: url("/fonts/caveat-600.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Caveat"; src: url("/fonts/caveat-700.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+
+html { scroll-behavior: smooth; }
+html, body { overflow-x: clip; }
+body { background: #fff; color: var(--color-ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+::selection { background: var(--color-sun); color: var(--color-navy); }
+
+/* Script accent words ("Better.", "Color") sit slightly larger than the
+   surrounding heading so the handwriting reads at the same weight. */
+.font-script { font-family: var(--font-script); }
+
+/* Hand-drawn swoosh underline for script accent words. */
+.swoosh { position: relative; white-space: nowrap; }
+.swoosh::after {
+  content: "";
+  position: absolute;
+  left: 2%;
+  right: 0;
+  bottom: -0.18em;
+  height: 0.32em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'%3E%3Cpath d='M2 9 C 30 2, 70 2, 118 7' fill='none' stroke='%23ffc61a' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+  pointer-events: none;
+}
+
+/* Reveal animations default to visible; motion.ts hides content with
+   gsap.from() only once GSAP actually runs, so no-JS stays readable. */
+.reveal { will-change: transform, opacity; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}

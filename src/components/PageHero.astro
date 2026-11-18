@@ -1,0 +1,47 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  description: string;
+}
+
+const { eyebrow, title, description } = Astro.props;
+const parts = Astro.url.pathname.split('/').filter(Boolean);
+const labels: Record<string, string> = {
+  services: 'Services',
+  about: 'About Us',
+  projects: 'Projects',
+  pricing: 'Pricing',
+  contact: 'Contact',
+  privacy: 'Privacy Policy',
+  terms: 'Terms & Conditions',
+  'interior-painting': 'Interior Painting',
+  'exterior-painting': 'Exterior Painting',
+  'commercial-painting': 'Commercial Painting',
+  'color-consultation': 'Color Consultation',
+};
+---
+
+<section class="relative overflow-hidden bg-cream">
+  <img src="/images/splash-flat-cut-640.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="pointer-events-none absolute -right-16 -top-10 w-72 rotate-12 opacity-40 select-none sm:w-96" />
+  <div class="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+    <nav aria-label="Breadcrumb" class="text-sm text-muted">
+      <ol class="flex flex-wrap items-center gap-1.5">
+        <li><a href="/" class="transition-colors hover:text-ink">Home</a></li>
+        {parts.map((p, i) => (
+          <li class="flex items-center gap-1.5">
+            <span aria-hidden="true">/</span>
+            {i === parts.length - 1 ? (
+              <span aria-current="page" class="font-medium text-ink">{labels[p] ?? p}</span>
+            ) : (
+              <a href={`/${parts.slice(0, i + 1).join('/')}/`} class="transition-colors hover:text-ink">{labels[p] ?? p}</a>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+    <p class="mt-6 text-xs font-semibold uppercase tracking-[0.22em] text-amber-600">{eyebrow}</p>
+    <h1 class="mt-3 max-w-2xl text-4xl font-extrabold leading-[1.08] tracking-tight text-ink sm:text-5xl">{title}</h1>
+    <p class="mt-4 max-w-xl text-base leading-relaxed text-muted sm:text-lg">{description}</p>
+  </div>
+</section>

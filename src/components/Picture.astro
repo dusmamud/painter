@@ -1,0 +1,55 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  sizes: string;
+  widths?: number[];
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  decoding?: 'async' | 'sync' | 'auto';
+  width?: number;
+  height?: number;
+  transparent?: boolean;
+  class?: string;
+  pictureClass?: string;
+}
+
+const {
+  src,
+  alt,
+  sizes,
+  widths,
+  loading = 'lazy',
+  fetchpriority = 'auto',
+  decoding = 'async',
+  width,
+  height,
+  transparent = false,
+  class: cls,
+  pictureClass,
+} = Astro.props;
+
+const base = src.replace(/\.[a-z]+$/, '');
+const ws = widths ?? (transparent ? [640, 1000, 1400] : [480, 800, 1200, 1600]);
+const fallbackExt = transparent ? 'png' : 'jpg';
+const fallbackType = transparent ? 'image/png' : 'image/jpeg';
+const srcset = (ext: string) => ws.map((w) => `${base}-${w}.${ext} ${w}w`).join(', ');
+const fallbackSrc = `${base}-${ws[ws.length - 1]}.${fallbackExt}`;
+---
+
+<picture class={pictureClass}>
+  <source type="image/webp" srcset={srcset('webp')} sizes={sizes} />
+  <source type={fallbackType} srcset={srcset(fallbackExt)} sizes={sizes} />
+  <img
+    src={fallbackSrc}
+    srcset={srcset(fallbackExt)}
+    sizes={sizes}
+    alt={alt}
+    loading={loading}
+    fetchpriority={fetchpriority}
+    decoding={decoding}
+    width={width}
+    height={height}
+    class={cls}
+  />
+</picture>

@@ -1,0 +1,108 @@
+---
+import { site } from '../data/site';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+import '../scripts/motion';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  robots?: string;
+  extraJsonLd?: Record<string, unknown>[];
+}
+
+const { title, description, ogImage = '/images/og.jpg', robots, extraJsonLd = [] } = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.url).toString();
+const ogAbsolute = new URL(ogImage, site.url).toString();
+
+const crumbLabels: Record<string, string> = {
+  services: 'Services',
+  about: 'About Us',
+  projects: 'Projects',
+  pricing: 'Pricing',
+  contact: 'Contact',
+  privacy: 'Privacy Policy',
+  terms: 'Terms & Conditions',
+  'interior-painting': 'Interior Painting',
+  'exterior-painting': 'Exterior Painting',
+  'commercial-painting': 'Commercial Painting',
+  'color-consultation': 'Color Consultation',
+};
+const parts = Astro.url.pathname.split('/').filter(Boolean);
+const crumbs = [
+  { name: 'Home', url: `${site.url}/` },
+  ...parts.map((p, i) => ({
+    name: crumbLabels[p] ?? p.replace(/-/g, ' ').replace(/\b\w/g, (m) => m.toUpperCase()),
+    url: `${site.url}/${parts.slice(0, i + 1).join('/')}/`,
+  })),
+];
+const websiteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${site.url}/#website`,
+  name: site.name,
+  url: `${site.url}/`,
+  description: site.description,
+};
+const breadcrumbLd =
+  crumbs.length > 1
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: crumbs.map((c, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: c.name,
+          item: c.url,
+        })),
+      }
+    : null;
+const allJsonLd = [websiteLd, ...(breadcrumbLd ? [breadcrumbLd] : []), ...extraJsonLd];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {robots && <meta name="robots" content={robots} />}
+    <meta name="theme-color" content="#ffc61a" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogAbsolute} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Painter — We Paint Spaces. You Live Better." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogAbsolute} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/caveat-700.woff2" as="font" type="font/woff2" crossorigin />
+    {allJsonLd.map((ld) => <script type="application/ld+json" set:html={JSON.stringify(ld)} />)}
+  </head>
+  <body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-navy focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white">
+      Skip to content
+    </a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <div id="toast" class="pointer-events-none fixed bottom-5 left-1/2 z-[90] -translate-x-1/2 translate-y-24 rounded-full bg-navy px-5 py-3 text-sm font-medium text-white opacity-0 shadow-xl transition-all duration-300" role="status" aria-live="polite"></div>
+    <button id="to-top" class="fixed bottom-5 right-5 z-[80] grid h-11 w-11 place-items-center rounded-full bg-navy text-sun opacity-0 shadow-lg transition-all duration-300 hover:bg-navy-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sun" aria-label="Back to top">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true"><path d="M12 19V5" /><path d="m5 12 7-7 7 7" /></svg>
+    </button>
+  </body>
+</html>

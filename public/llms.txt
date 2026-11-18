@@ -1,0 +1,23 @@
+# Painter
+
+Painter is a professional painting company based in Paintville, CA, serving 25+ cities. Services: interior painting, exterior painting, commercial painting, and color consultation. 10+ years of experience, 500+ projects, 98% happy customers, 5-year workmanship warranty. Fixed, transparent quotes — no hidden costs.
+
+## Pages
+
+- Home: https://painter.pages.dev/
+- Services: https://painter.pages.dev/services/
+- Interior Painting: https://painter.pages.dev/services/interior-painting/
+- Exterior Painting: https://painter.pages.dev/services/exterior-painting/
+- Commercial Painting: https://painter.pages.dev/services/commercial-painting/
+- Color Consultation: https://painter.pages.dev/services/color-consultation/
+- About Us: https://painter.pages.dev/about/
+- Projects: https://painter.pages.dev/projects/
+- Pricing: https://painter.pages.dev/pricing/
+- Contact: https://painter.pages.dev/contact/
+
+## Contact
+
+- Phone: +1 234 567 8900
+- Email: hello@painter.com
+- Address: 123 Color Street, Paintville, CA 12345
+- Hours: Mon–Sat, 8am–6pm

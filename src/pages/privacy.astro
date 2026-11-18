@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import { contact } from '../data/site';
+---
+
+<Layout
+  title="Privacy Policy | Painter"
+  description="How Painter handles your personal information when you request a quote or contact us."
+  robots="noindex"
+>
+  <PageHero eyebrow="Legal" title="Privacy Policy" description="Last updated: November 2026. Short version: we only use your details to answer you." />
+  <section class="bg-white py-14 sm:py-16">
+    <div class="mx-auto max-w-3xl space-y-8 px-4 sm:px-6 lg:px-8">
+      <div>
+        <h2 class="text-xl font-bold text-ink">What we collect</h2>
+        <p class="mt-2 text-[15px] leading-relaxed text-muted">
+          When you request a quote or contact us, you share your name, contact details, and project information. This
+          website has no accounts, no tracking cookies, and no analytics that identify you.
+        </p>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold text-ink">How we use it</h2>
+        <p class="mt-2 text-[15px] leading-relaxed text-muted">
+          We use your details only to prepare your quote, schedule your project, and communicate with you about it. The
+          quote form opens your own email app — your message is sent by you, from your email account, and we receive it
+          like any other email.
+        </p>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold text-ink">What we never do</h2>
+        <p class="mt-2 text-[15px] leading-relaxed text-muted">
+          We never sell, rent, or share your personal information with third parties for marketing. We never add you to a
+          mailing list without your explicit permission.
+        </p>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold text-ink">Your rights</h2>
+        <p class="mt-2 text-[15px] leading-relaxed text-muted">
+          You can ask us at any time to show, correct, or delete the personal information we hold about you. Email
+          <a href={`mailto:${contact.email}`} class="font-medium text-ink underline underline-offset-2"> {contact.email}</a>
+          and we will respond within a few business days.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

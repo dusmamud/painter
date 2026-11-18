@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import { contact } from '../data/site';
+---
+
+<Layout
+  title="Terms & Conditions | Painter"
+  description="The terms that apply to Painter quotes and painting projects."
+  robots="noindex"
+>
+  <PageHero eyebrow="Legal" title="Terms & Conditions" description="Last updated: November 2026. Plain-language terms for quotes and projects." />
+  <section class="bg-white py-14 sm:py-16">
+    <div class="mx-auto max-w-3xl space-y-8 px-4 sm:px-6 lg:px-8">
+      <div>
+        <h2 class="text-xl font-bold text-ink">Quotes</h2>
+        <p class="mt-2 text-[15px] leading-relaxed text-muted">
+          Quotes are free and fixed for the scope described. If the scope changes — extra rooms, repairs beyond what was
+          visible, or different paint — we agree the new price with you in writing before doing the extra work.
+        </p>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold text-ink">Scheduling &amp; payment</h2>
+        <p class="mt-2 text-[15px] leading-relaxed text-muted">
+          We agree a start date and schedule before work begins. Exterior work may move for weather. Payment terms are
+          stated on your quote; the balance is due on completion after the final walkthrough.
+        </p>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold text-ink">Warranty</h2>
+        <p class="mt-2 text-[15px] leading-relaxed text-muted">
+          Every project includes a 5-year workmanship warranty covering peeling, blistering, and flaking caused by our
+          preparation or application. It does not cover damage from leaks, structural movement, or misuse.
+        </p>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold text-ink">Your space</h2>
+        <p class="mt-2 text-[15px] leading-relaxed text-muted">
+          We protect floors and furniture and clean up daily. Please clear small fragile items and wall hangings before we
+          arrive, and let us know about pets, alarms, and access arrangements.
+        </p>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold text-ink">Questions</h2>
+        <p class="mt-2 text-[15px] leading-relaxed text-muted">
+          Email <a href={`mailto:${contact.email}`} class="font-medium text-ink underline underline-offset-2">{contact.email}</a>
+          or call <a href={contact.phoneHref} class="font-medium text-ink underline underline-offset-2">{contact.phoneDisplay}</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

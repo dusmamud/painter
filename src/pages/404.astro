@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<Layout
+  title="Page Not Found | Painter"
+  description="The page you are looking for does not exist. Head back home or get a free painting quote."
+  robots="noindex"
+>
+  <section class="bg-white py-20 sm:py-28">
+    <div class="mx-auto max-w-xl px-4 text-center sm:px-6">
+      <p class="font-script text-7xl font-bold text-sun-deep sm:text-8xl">Oops!</p>
+      <h1 class="mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">This wall is blank — 404</h1>
+      <p class="mt-3 text-base leading-relaxed text-muted">
+        The page you are looking for does not exist or has moved. Let&apos;s get you back to freshly painted pages.
+      </p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <a href="/" class="inline-flex items-center gap-2 rounded-full bg-sun px-6 py-3 text-sm font-semibold text-navy transition hover:bg-sun-deep">
+          Back to Home
+          <Icon name="arrow" class="h-4 w-4" />
+        </a>
+        <a href="/contact/" class="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3 text-sm font-semibold text-ink transition hover:border-ink">
+          Get a Free Quote
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
