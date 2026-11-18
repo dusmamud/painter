@@ -25,14 +25,14 @@ jobs:
         run: npm run build
       - name: Create Pages project if missing
         # wrangler pages deploy does NOT create a new Pages project on its own
-        # (it fails with 'The Pages project "painter" does not exist'). Create it
+        # (it fails with 'The Pages project "painter-static" does not exist'). Create it
         # once here; if it already exists this step fails harmlessly (|| true).
-        run: npx wrangler pages project create painter --production-branch main || true
+        run: npx wrangler pages project create painter-static --production-branch main || true
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       - name: Deploy dist to Cloudflare Pages
-        run: npx wrangler pages deploy dist --project-name=painter --commit-dirty=true
+        run: npx wrangler pages deploy dist --project-name=painter-static --commit-dirty=true
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

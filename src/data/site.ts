@@ -6,7 +6,7 @@
 export const site = {
   name: 'Painter',
   tagline: 'We Paint Spaces. You Live Better.',
-  url: 'https://painter.pages.dev',
+  url: 'https://painter-static.pages.dev',
   description:
     'Painter is a professional painting company — interior, exterior and commercial painting with quality finishes, vibrant colors and flawless results.',
   year: 2026,

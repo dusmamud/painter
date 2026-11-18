@@ -5,7 +5,7 @@ A mobile-first, static painting-services website built with the same stack as
 GSAP + Lenis motion, no backend, no UI library. Built from a design reference
 ("same to same") with AI-generated imagery, including transparent PNG cutouts.
 
-Live: https://painter.pages.dev
+Live: https://painter-static.pages.dev
 
 > **All content is MOCK / demo** — brand details, phone, email, address,
 > prices, testimonials, projects and team members are placeholders. Replace
@@ -80,5 +80,5 @@ guarded by `if (typeof window !== 'undefined')`. Do not remove the guard.
 ## Deploy
 
 Push to `main` (or manual dispatch) → GitHub Actions builds and deploys `dist/`
-to Cloudflare Pages project `painter` via wrangler. Requires the repository
+to Cloudflare Pages project `painter-static` via wrangler. Requires the repository
 secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.

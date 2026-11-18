@@ -4,16 +4,16 @@ Painter is a professional painting company based in Paintville, CA, serving 25+ 
 
 ## Pages
 
-- Home: https://painter.pages.dev/
-- Services: https://painter.pages.dev/services/
-- Interior Painting: https://painter.pages.dev/services/interior-painting/
-- Exterior Painting: https://painter.pages.dev/services/exterior-painting/
-- Commercial Painting: https://painter.pages.dev/services/commercial-painting/
-- Color Consultation: https://painter.pages.dev/services/color-consultation/
-- About Us: https://painter.pages.dev/about/
-- Projects: https://painter.pages.dev/projects/
-- Pricing: https://painter.pages.dev/pricing/
-- Contact: https://painter.pages.dev/contact/
+- Home: https://painter-static.pages.dev/
+- Services: https://painter-static.pages.dev/services/
+- Interior Painting: https://painter-static.pages.dev/services/interior-painting/
+- Exterior Painting: https://painter-static.pages.dev/services/exterior-painting/
+- Commercial Painting: https://painter-static.pages.dev/services/commercial-painting/
+- Color Consultation: https://painter-static.pages.dev/services/color-consultation/
+- About Us: https://painter-static.pages.dev/about/
+- Projects: https://painter-static.pages.dev/projects/
+- Pricing: https://painter-static.pages.dev/pricing/
+- Contact: https://painter-static.pages.dev/contact/
 
 ## Contact
 
