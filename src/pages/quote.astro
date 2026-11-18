@@ -3,14 +3,15 @@ import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
 import Faq from '../components/Faq.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
 import ContactCTA from '../components/ContactCTA.astro';
-import { contact, faqs } from '../data/site';
+import { contact, faqs, testimonials } from '../data/site';
 
 const inputClass =
   'w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-muted/70 outline-none transition focus:border-sun-deep focus:ring-2 focus:ring-sun/60';
 
 const typePill = (active: boolean) =>
-  `rounded-full px-4 py-2.5 text-sm font-semibold ring-1 ring-line transition ${active ? 'bg-navy text-white' : 'bg-white text-muted hover:text-ink'}`;
+  `rounded-full px-4 py-3 text-sm font-semibold ring-1 ring-line transition ${active ? 'bg-navy text-white' : 'bg-white text-muted hover:text-ink'}`;
 ---
 
 <Layout
@@ -51,7 +52,7 @@ const typePill = (active: boolean) =>
           <label class="flex items-center justify-between text-sm font-semibold text-ink" for="q-sqft">
             Home size <span data-q-value="sqft" class="rounded-full bg-sun-soft px-3 py-1 text-xs font-bold text-navy">1,800 sq ft</span>
           </label>
-          <input id="q-sqft" data-q-input="sqft" type="range" min="500" max="5000" step="100" value="1800" class="mt-3 h-2 w-full cursor-pointer accent-[#f0b400]" />
+          <input id="q-sqft" data-q-input="sqft" type="range" min="500" max="5000" step="100" value="1800" class="mt-1 h-11 w-full cursor-pointer accent-[#f0b400]" />
           <div class="mt-1.5 flex justify-between text-xs text-muted"><span>500 sq ft</span><span>5,000 sq ft</span></div>
         </div>
 
@@ -76,16 +77,16 @@ const typePill = (active: boolean) =>
         <fieldset class="mt-6" data-q-field="extras">
           <legend class="text-sm font-semibold text-ink">Extras</legend>
           <div class="mt-3 flex flex-wrap gap-2">
-            <label class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm font-medium text-ink transition has-checked:border-sun-deep has-checked:bg-sun-soft">
+            <label class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line px-4 py-3 text-sm font-medium text-ink transition has-checked:border-sun-deep has-checked:bg-sun-soft">
               <input type="checkbox" data-q-extra="120" class="h-4 w-4 accent-[#f0b400]" /> Ceilings +$120
             </label>
-            <label class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm font-medium text-ink transition has-checked:border-sun-deep has-checked:bg-sun-soft">
+            <label class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line px-4 py-3 text-sm font-medium text-ink transition has-checked:border-sun-deep has-checked:bg-sun-soft">
               <input type="checkbox" data-q-extra="180" class="h-4 w-4 accent-[#f0b400]" /> Trim &amp; doors +$180
             </label>
-            <label class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm font-medium text-ink transition has-checked:border-sun-deep has-checked:bg-sun-soft">
+            <label class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line px-4 py-3 text-sm font-medium text-ink transition has-checked:border-sun-deep has-checked:bg-sun-soft">
               <input type="checkbox" data-q-extra="150" class="h-4 w-4 accent-[#f0b400]" /> Wall repairs +$150
             </label>
-            <label class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm font-medium text-ink transition has-checked:border-sun-deep has-checked:bg-sun-soft">
+            <label class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line px-4 py-3 text-sm font-medium text-ink transition has-checked:border-sun-deep has-checked:bg-sun-soft">
               <input type="checkbox" data-q-eco class="h-4 w-4 accent-[#f0b400]" /> Zero-VOC eco paint +10%
             </label>
           </div>
@@ -138,6 +139,14 @@ const typePill = (active: boolean) =>
             Prefer to talk? <a href={contact.phoneHref} class="font-semibold text-ink underline decoration-sun decoration-2 underline-offset-4 hover:text-amber-600">{contact.phoneDisplay}</a>
           </p>
         </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white pb-14 sm:pb-16" aria-label="What clients say">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+      <div class="reveal">
+        <TestimonialCard name={testimonials[0].name} role={testimonials[0].role} avatar={testimonials[0].avatar} initials={testimonials[0].initials} quote={testimonials[0].quote} />
       </div>
     </div>
   </section>

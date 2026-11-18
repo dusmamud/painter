@@ -17,6 +17,14 @@ Painter is a professional painting company based in Paintville, CA, serving 25+ 
 - Instant Estimate: https://painter-static.pages.dev/quote/
 - Reviews: https://painter-static.pages.dev/reviews/
 - Service Areas: https://painter-static.pages.dev/areas/
+- Painters in Paintville: https://painter-static.pages.dev/areas/paintville/
+- Painters in Maplewood: https://painter-static.pages.dev/areas/maplewood/
+- Painters in Oakdale: https://painter-static.pages.dev/areas/oakdale/
+- Painters in Riverside: https://painter-static.pages.dev/areas/riverside/
+- Painters in Brookfield: https://painter-static.pages.dev/areas/brookfield/
+- Painters in Cedar Falls: https://painter-static.pages.dev/areas/cedar-falls/
+- Painters in Sunnyvale: https://painter-static.pages.dev/areas/sunnyvale/
+- Painters in Hillcrest: https://painter-static.pages.dev/areas/hillcrest/
 - Our Process: https://painter-static.pages.dev/process/
 - Color Visualizer: https://painter-static.pages.dev/colors/
 - Our Guarantee: https://painter-static.pages.dev/guarantee/

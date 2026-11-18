@@ -1,5 +1,6 @@
 ---
 import { site, contact, socials, services } from '../data/site';
+import Icon from './Icon.astro';
 
 const socialIcons: Record<string, string> = {
   Facebook: '<path d="M13.5 22v-8h2.8l.4-3.2h-3.2V8.7c0-.9.3-1.6 1.7-1.6h1.6V4.2c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4v2.7H7.5V14h2.9v8h3.1Z" />',
@@ -17,11 +18,7 @@ const socialIcons: Record<string, string> = {
       <div>
         <a href="/" class="flex items-center gap-2" aria-label="Painter — home">
           <span class="grid h-10 w-10 place-items-center rounded-full bg-sun text-navy">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true">
-              <rect x="2" y="3" width="12" height="6" rx="2" fill="currentColor" stroke="none" />
-              <path d="M14 6h2a2 2 0 0 1 2 2v2" />
-              <rect x="16.5" y="11" width="3" height="9" rx="1.5" fill="currentColor" stroke="none" />
-            </svg>
+            <Icon name="roller" class="h-5 w-5" />
           </span>
           <span class="text-xl font-bold tracking-tight text-white">Painter</span>
         </a>
@@ -31,11 +28,11 @@ const socialIcons: Record<string, string> = {
         <div class="mt-5 flex items-center gap-2">
           {socials.map((s) =>
             s.href === '#' ? (
-              <span role="img" aria-label={s.label} class="grid h-9 w-9 place-items-center rounded-full border border-white/20 text-white/70">
+              <span role="img" aria-label={s.label} class="grid h-11 w-11 place-items-center rounded-full border border-white/20 text-white/70">
                 <svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4" aria-hidden="true" set:html={socialIcons[s.label]} />
               </span>
             ) : (
-              <a href={s.href} aria-label={s.label} class="grid h-9 w-9 place-items-center rounded-full border border-white/20 text-white/70 transition hover:border-sun hover:text-sun">
+              <a href={s.href} aria-label={s.label} class="grid h-11 w-11 place-items-center rounded-full border border-white/20 text-white/70 transition hover:border-sun hover:text-sun">
                 <svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4" aria-hidden="true" set:html={socialIcons[s.label]} />
               </a>
             ),
@@ -46,26 +43,26 @@ const socialIcons: Record<string, string> = {
       <nav aria-label="Footer">
         <h2 class="text-sm font-semibold uppercase tracking-wider text-white">Quick Links</h2>
         <ul class="mt-4 space-y-2.5 text-sm">
-          <li><a class="transition hover:text-sun" href="/">Home</a></li>
-          <li><a class="transition hover:text-sun" href="/services/">Services</a></li>
-          <li><a class="transition hover:text-sun" href="/projects/">Projects</a></li>
-          <li><a class="transition hover:text-sun" href="/pricing/">Pricing</a></li>
-          <li><a class="transition hover:text-sun" href="/reviews/">Reviews</a></li>
-          <li><a class="transition hover:text-sun" href="/quote/">Get a Quote</a></li>
+          <li><a class="inline-block py-1 transition hover:text-sun" href="/">Home</a></li>
+          <li><a class="inline-block py-1 transition hover:text-sun" href="/services/">Services</a></li>
+          <li><a class="inline-block py-1 transition hover:text-sun" href="/projects/">Projects</a></li>
+          <li><a class="inline-block py-1 transition hover:text-sun" href="/pricing/">Pricing</a></li>
+          <li><a class="inline-block py-1 transition hover:text-sun" href="/reviews/">Reviews</a></li>
+          <li><a class="inline-block py-1 transition hover:text-sun" href="/quote/">Get a Quote</a></li>
         </ul>
       </nav>
 
       <nav aria-label="Footer explore">
         <h2 class="text-sm font-semibold uppercase tracking-wider text-white">Explore</h2>
         <ul class="mt-4 space-y-2.5 text-sm">
-          <li><a class="transition hover:text-sun" href="/about/">About Us</a></li>
-          <li><a class="transition hover:text-sun" href="/process/">Our Process</a></li>
-          <li><a class="transition hover:text-sun" href="/colors/">Color Visualizer</a></li>
-          <li><a class="transition hover:text-sun" href="/areas/">Service Areas</a></li>
-          <li><a class="transition hover:text-sun" href="/guarantee/">Our Guarantee</a></li>
-          <li><a class="transition hover:text-sun" href="/blog/">Blog</a></li>
-          <li><a class="transition hover:text-sun" href="/faq/">FAQ</a></li>
-          <li><a class="transition hover:text-sun" href="/book/">Book a Consultation</a></li>
+          <li><a class="inline-block py-1 transition hover:text-sun" href="/about/">About Us</a></li>
+          <li><a class="inline-block py-1 transition hover:text-sun" href="/process/">Our Process</a></li>
+          <li><a class="inline-block py-1 transition hover:text-sun" href="/colors/">Color Visualizer</a></li>
+          <li><a class="inline-block py-1 transition hover:text-sun" href="/areas/">Service Areas</a></li>
+          <li><a class="inline-block py-1 transition hover:text-sun" href="/guarantee/">Our Guarantee</a></li>
+          <li><a class="inline-block py-1 transition hover:text-sun" href="/blog/">Blog</a></li>
+          <li><a class="inline-block py-1 transition hover:text-sun" href="/faq/">FAQ</a></li>
+          <li><a class="inline-block py-1 transition hover:text-sun" href="/book/">Book a Consultation</a></li>
         </ul>
       </nav>
 
@@ -73,7 +70,7 @@ const socialIcons: Record<string, string> = {
         <h2 class="text-sm font-semibold uppercase tracking-wider text-white">Our Services</h2>
         <ul class="mt-4 space-y-2.5 text-sm">
           {services.map((s) => (
-            <li><a class="transition hover:text-sun" href={`/services/${s.slug}/`}>{s.title}</a></li>
+            <li><a class="inline-block py-1 transition hover:text-sun" href={`/services/${s.slug}/`}>{s.title}</a></li>
           ))}
         </ul>
       </nav>
@@ -83,18 +80,18 @@ const socialIcons: Record<string, string> = {
         <ul class="mt-4 space-y-3 text-sm">
           <li>
             <a class="flex items-start gap-2.5 transition hover:text-sun" href={contact.phoneHref}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 h-4 w-4 shrink-0 text-sun" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
+              <Icon name="phone" class="mt-0.5 h-4 w-4 shrink-0 text-sun" />
               {contact.phoneDisplay}
             </a>
           </li>
           <li>
             <a class="flex items-start gap-2.5 transition hover:text-sun" href={`mailto:${contact.email}`}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 h-4 w-4 shrink-0 text-sun" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
+              <Icon name="mail" class="mt-0.5 h-4 w-4 shrink-0 text-sun" />
               {contact.email}
             </a>
           </li>
           <li class="flex items-start gap-2.5">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 h-4 w-4 shrink-0 text-sun" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
+            <Icon name="pin" class="mt-0.5 h-4 w-4 shrink-0 text-sun" />
               <span>{contact.location}</span>
           </li>
         </ul>
@@ -104,10 +101,10 @@ const socialIcons: Record<string, string> = {
     <div class="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs sm:flex-row">
       <p>© {site.year} {site.name}. All rights reserved.</p>
       <p class="flex items-center gap-5">
-        <a class="transition hover:text-sun" href="/privacy/">Privacy Policy</a>
-        <a class="transition hover:text-sun" href="/terms/">Terms &amp; Conditions</a>
+        <a class="inline-block py-1 transition hover:text-sun" href="/privacy/">Privacy Policy</a>
+        <a class="inline-block py-1 transition hover:text-sun" href="/terms/">Terms &amp; Conditions</a>
       </p>
     </div>
   </div>
-  <img src="/images/splash-flat-cut-640.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="pointer-events-none absolute -bottom-20 -right-6 w-40 rotate-12 opacity-90 select-none sm:w-52" />
+  <img src="/images/splash-flat-cut-640.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" class="pointer-events-none absolute -bottom-20 -right-6 w-40 rotate-12 opacity-90 select-none sm:w-52" />
 </footer>

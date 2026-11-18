@@ -66,6 +66,16 @@ export const services = [
       'Crisp lines, zero drips',
       'Same-day cleanup & walkthrough',
     ],
+    faqs: [
+      {
+        q: 'How long does a room take?',
+        a: 'Most rooms are done in one day, including prep and cleanup. A whole home usually takes 3–5 days depending on size and repairs.',
+      },
+      {
+        q: 'Do I need to move my furniture?',
+        a: 'No — we move furniture to the center, cover everything, and put it all back when the paint is dry. You just clear small breakables.',
+      },
+    ],
   },
   {
     slug: 'exterior-painting',
@@ -83,6 +93,16 @@ export const services = [
       'Siding, trim, doors & decks',
       'Ladder & lift work included',
       '5-year workmanship warranty',
+    ],
+    faqs: [
+      {
+        q: 'What weather do you need to paint outside?',
+        a: 'Dry days above 50°F with no rain in the forecast for 24 hours. We watch the weather and reschedule at no cost if it turns.',
+      },
+      {
+        q: 'How long will an exterior paint job last?',
+        a: 'With proper prep and premium coatings, 7–10 years is typical. Our 5-year workmanship warranty covers peeling and blistering.',
+      },
     ],
   },
   {
@@ -102,6 +122,16 @@ export const services = [
       'Safety-compliant crews',
       'Scheduled maintenance plans',
     ],
+    faqs: [
+      {
+        q: 'Can you paint while we stay open?',
+        a: 'Yes — we phase the work, use low-odour paint, and schedule noisy prep for off-hours. Many clients never close a single day.',
+      },
+      {
+        q: 'Do you handle large multi-site work?',
+        a: 'Yes. One project manager coordinates every site, one quote covers all of them, and brand colors stay consistent across locations.',
+      },
+    ],
   },
   {
     slug: 'cabinet-painting',
@@ -120,6 +150,16 @@ export const services = [
       'Doors sprayed off-site, zero dust',
       '5-year workmanship warranty',
     ],
+    faqs: [
+      {
+        q: 'Will the finish chip or peel?',
+        a: 'No — we use cabinet-grade enamel over a bonding primer, sprayed for a hard shell. It is rated for daily kitchen use and covered for 5 years.',
+      },
+      {
+        q: 'Can I still use my kitchen?',
+        a: 'Yes. Doors and drawers go to our shop; frames are painted in place. Most kitchens are fully usable again in 3–4 days.',
+      },
+    ],
   },
   {
     slug: 'color-consultation',
@@ -137,6 +177,16 @@ export const services = [
       'Finish & sheen guidance',
       'Whole-home color flow plan',
       'Digital preview of your rooms',
+    ],
+    faqs: [
+      {
+        q: 'Is the consultation really free?',
+        a: 'Yes, with any booked project. Standalone consultations are $99, credited in full if you book within 30 days.',
+      },
+      {
+        q: 'What if I hate the color after it is up?',
+        a: 'That is exactly what the swatch tests prevent — we test large patches in your light before a single wall is painted.',
+      },
     ],
   },
 ];
@@ -477,14 +527,14 @@ export const team = [
 ];
 
 export const areas = [
-  { town: 'Paintville', distance: 'Home base', jobs: 240, note: 'Our hometown — same-week visits, all services.' },
-  { town: 'Maplewood', distance: '6 miles', jobs: 85, note: 'Exteriors and whole-home repaints are our most-booked jobs here.' },
-  { town: 'Oakdale', distance: '9 miles', jobs: 64, note: 'Kitchen cabinets and rental turnovers, weekly crews.' },
-  { town: 'Riverside', distance: '12 miles', jobs: 58, note: 'Cafés, studios and storefronts along the riverfront.' },
-  { town: 'Brookfield', distance: '14 miles', jobs: 41, note: 'Family homes — bedrooms, nurseries and living rooms.' },
-  { town: 'Cedar Falls', distance: '18 miles', jobs: 33, note: 'Restaurants and retail, painted after hours.' },
-  { town: 'Sunnyvale', distance: '21 miles', jobs: 27, note: 'New-build touch-ups and first-home repaints.' },
-  { town: 'Hillcrest', distance: '24 miles', jobs: 19, note: 'Larger projects and exteriors; free quotes still apply.' },
+  { slug: 'paintville', town: 'Paintville', distance: 'Home base', jobs: 240, note: 'Our hometown — same-week visits, all services.' },
+  { slug: 'maplewood', town: 'Maplewood', distance: '6 miles', jobs: 85, note: 'Exteriors and whole-home repaints are our most-booked jobs here.' },
+  { slug: 'oakdale', town: 'Oakdale', distance: '9 miles', jobs: 64, note: 'Kitchen cabinets and rental turnovers, weekly crews.' },
+  { slug: 'riverside', town: 'Riverside', distance: '12 miles', jobs: 58, note: 'Cafés, studios and storefronts along the riverfront.' },
+  { slug: 'brookfield', town: 'Brookfield', distance: '14 miles', jobs: 41, note: 'Family homes — bedrooms, nurseries and living rooms.' },
+  { slug: 'cedar-falls', town: 'Cedar Falls', distance: '18 miles', jobs: 33, note: 'Restaurants and retail, painted after hours.' },
+  { slug: 'sunnyvale', town: 'Sunnyvale', distance: '21 miles', jobs: 27, note: 'New-build touch-ups and first-home repaints.' },
+  { slug: 'hillcrest', town: 'Hillcrest', distance: '24 miles', jobs: 19, note: 'Larger projects and exteriors; free quotes still apply.' },
 ];
 
 export const blogPosts = [

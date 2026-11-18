@@ -1,5 +1,6 @@
 ---
-import { navLinks, moreLinks } from '../data/site';
+import { navLinks, moreLinks, contact } from '../data/site';
+import Icon from './Icon.astro';
 
 const current = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isActive = (href: string) => (href === '/' ? current === '/' : current.startsWith(href.replace(/\/$/, '')));
@@ -12,8 +13,8 @@ const moreActive = moreLinks.some((l) => isActive(l.href));
     Summer Refresh: 20% off interior painting when you book by Dec 15.
     <a href="/quote/" class="ml-1.5 font-semibold text-sun underline decoration-sun/50 underline-offset-2 hover:text-white">Get your estimate →</a>
   </p>
-  <button type="button" id="ann-dismiss" class="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-white/70 transition hover:text-white" aria-label="Dismiss announcement">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="h-4 w-4" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg>
+  <button type="button" id="ann-dismiss" class="absolute right-1 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full text-white/70 transition hover:text-white" aria-label="Dismiss announcement">
+    <Icon name="x" class="h-4 w-4" />
   </button>
 </div>
 
@@ -22,11 +23,7 @@ const moreActive = moreLinks.some((l) => isActive(l.href));
   <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:h-[72px] sm:px-6 lg:px-8">
     <a href="/" class="flex items-center gap-2" aria-label="Painter — home">
       <span class="grid h-10 w-10 place-items-center rounded-full bg-sun text-navy">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true">
-          <rect x="2" y="3" width="12" height="6" rx="2" fill="currentColor" stroke="none" />
-          <path d="M14 6h2a2 2 0 0 1 2 2v2" />
-          <rect x="16.5" y="11" width="3" height="9" rx="1.5" fill="currentColor" stroke="none" />
-        </svg>
+        <Icon name="roller" class="h-5 w-5" />
       </span>
       <span class="text-xl font-bold tracking-tight text-ink">Painter</span>
     </a>
@@ -52,7 +49,9 @@ const moreActive = moreLinks.some((l) => isActive(l.href));
           aria-controls="more-panel"
         >
           More
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 transition-transform duration-200" id="more-chevron" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+          <span class="grid place-items-center transition-transform duration-200" id="more-chevron">
+            <Icon name="chevron" class="h-3.5 w-3.5" />
+          </span>
           {moreActive && <span class="absolute inset-x-0 -bottom-0.5 h-[3px] rounded-full bg-sun" aria-hidden="true"></span>}
         </button>
         <div id="more-panel" class="invisible absolute right-0 top-full z-50 mt-2 w-60 translate-y-1 rounded-2xl bg-white p-2 opacity-0 shadow-[0_24px_50px_-16px_rgba(12,21,38,0.35)] ring-1 ring-line transition-all duration-200" role="menu">
@@ -70,10 +69,18 @@ const moreActive = moreLinks.some((l) => isActive(l.href));
       </div>
     </nav>
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2.5 sm:gap-3">
+      <a
+        href={contact.phoneHref}
+        aria-label={`Call Painter at ${contact.phoneDisplay}`}
+        class="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-line px-3 text-sm font-semibold text-ink transition-colors hover:border-ink xl:px-4"
+      >
+        <Icon name="phone" class="h-4 w-4" />
+        <span class="hidden xl:inline">{contact.phoneDisplay}</span>
+      </a>
       <a href="/quote/" class="hidden items-center gap-2 rounded-full bg-sun px-5 py-2.5 text-sm font-semibold text-navy transition hover:bg-sun-deep sm:inline-flex">
         Request a Quote
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+        <Icon name="arrow" class="h-4 w-4" />
       </a>
       <button
         id="menu-btn"
@@ -82,7 +89,12 @@ const moreActive = moreLinks.some((l) => isActive(l.href));
         aria-controls="mobile-menu"
         aria-label="Open menu"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" class="h-5 w-5" aria-hidden="true"><path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h16" /></svg>
+        <span id="menu-icon-open" class="grid place-items-center">
+          <Icon name="menu" class="h-5 w-5" />
+        </span>
+        <span id="menu-icon-close" class="hidden place-items-center">
+          <Icon name="x" class="h-5 w-5" />
+        </span>
       </button>
     </div>
   </div>
@@ -103,14 +115,14 @@ const moreActive = moreLinks.some((l) => isActive(l.href));
         <a
           href={link.href}
           aria-current={isActive(link.href) ? 'page' : undefined}
-          class={`rounded-xl px-3 py-2.5 text-[15px] ${isActive(link.href) ? 'bg-sun-soft font-semibold text-ink' : 'font-medium text-muted hover:bg-cream hover:text-ink'}`}
+          class={`rounded-xl px-3 py-3 text-[15px] ${isActive(link.href) ? 'bg-sun-soft font-semibold text-ink' : 'font-medium text-muted hover:bg-cream hover:text-ink'}`}
         >
           {link.label}
         </a>
       ))}
       <a href="/quote/" class="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-sun px-5 py-3 text-sm font-semibold text-navy sm:hidden">
         Request a Quote
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+        <Icon name="arrow" class="h-4 w-4" />
       </a>
     </nav>
   </div>
@@ -119,10 +131,16 @@ const moreActive = moreLinks.some((l) => isActive(l.href));
 <script>
   const btn = document.getElementById('menu-btn');
   const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
   const setMenu = (open: boolean) => {
     menu?.classList.toggle('hidden', !open);
     btn?.setAttribute('aria-expanded', open ? 'true' : 'false');
     btn?.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    iconOpen?.classList.toggle('hidden', open);
+    iconOpen?.classList.toggle('grid', !open);
+    iconClose?.classList.toggle('hidden', !open);
+    iconClose?.classList.toggle('grid', open);
     // Keep the sticky mobile CTA out of the way while the menu is open.
     if (open) document.documentElement.setAttribute('data-menu-open', '');
     else document.documentElement.removeAttribute('data-menu-open');

@@ -244,7 +244,12 @@ if (typeof window !== 'undefined') {
         const dot = document.createElement('button');
         dot.type = 'button';
         dot.setAttribute('aria-label', `Go to testimonial page ${i + 1}`);
-        dot.className = `h-2.5 rounded-full transition-all duration-300 ${i === active ? 'w-7 bg-sun-deep' : 'w-2.5 bg-line'}`;
+        // 44px hit area with the small pill visual centred inside.
+        dot.className = 'grid h-11 w-11 place-items-center';
+        const pill = document.createElement('span');
+        pill.className = `block h-2.5 rounded-full transition-all duration-300 ${i === active ? 'w-7 bg-sun-deep' : 'w-2.5 bg-line'}`;
+        pill.setAttribute('aria-hidden', 'true');
+        dot.appendChild(pill);
         dot.addEventListener('click', () => track.scrollTo({ left: i * track.clientWidth, behavior }));
         dotsWrap.appendChild(dot);
       }

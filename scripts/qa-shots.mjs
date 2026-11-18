@@ -45,7 +45,7 @@ const browser = await chromium.launch({ executablePath: shells[0], args: ['--no-
 const routes = [
   '/', '/services/', '/services/interior-painting/', '/services/cabinet-painting/',
   '/about/', '/projects/', '/projects/sunny-family-living-room/', '/pricing/', '/contact/',
-  '/quote/', '/reviews/', '/areas/', '/process/', '/colors/', '/guarantee/',
+  '/quote/', '/reviews/', '/areas/', '/areas/maplewood/', '/process/', '/colors/', '/guarantee/',
   '/blog/', '/blog/paint-color-trends-2026/', '/faq/', '/book/', '/privacy/', '/terms/',
 ];
 const widths = [390, 768, 1024, 1440];

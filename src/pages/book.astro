@@ -121,8 +121,8 @@ const inputClass =
         btn.disabled = taken;
         btn.setAttribute('aria-label', taken ? `${time}, already booked` : `Book ${time}`);
         btn.className = taken
-          ? 'cursor-not-allowed rounded-full bg-cream px-4 py-2.5 text-sm font-medium text-muted/50 line-through ring-1 ring-line'
-          : 'rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-ink ring-1 ring-line transition hover:border-navy';
+          ? 'cursor-not-allowed rounded-full bg-cream px-4 py-3 text-sm font-medium text-muted/50 line-through ring-1 ring-line'
+          : 'rounded-full bg-white px-4 py-3 text-sm font-semibold text-ink ring-1 ring-line transition hover:border-navy';
         btn.addEventListener('click', () => {
           slotsEl.querySelectorAll('button').forEach((b) => {
             if (b.disabled) return;

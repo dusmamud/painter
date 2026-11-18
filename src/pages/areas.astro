@@ -31,18 +31,22 @@ const areasLd = {
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {areas.map((a, i) => (
-          <article class="reveal rounded-3xl bg-white p-6 ring-1 ring-line transition-shadow duration-300 hover:shadow-[0_20px_45px_-18px_rgba(12,21,38,0.3)]" data-delay={String((i % 4) * 0.08)}>
+          <a href={`/areas/${a.slug}/`} class="reveal group block rounded-3xl bg-white p-6 ring-1 ring-line transition-shadow duration-300 hover:shadow-[0_20px_45px_-18px_rgba(12,21,38,0.3)]" data-delay={String((i % 4) * 0.08)}>
             <span class="grid h-12 w-12 place-items-center rounded-2xl bg-sun-soft text-sun-deep">
               <Icon name="pin" class="h-6 w-6" />
             </span>
-            <h2 class="mt-4 text-lg font-bold text-ink">{a.town}, CA</h2>
+            <h2 class="mt-4 text-lg font-bold text-ink transition-colors group-hover:text-amber-600">{a.town}, CA</h2>
             <p class="mt-1 flex flex-wrap gap-x-3 text-sm text-muted">
               <span>{a.distance}</span>
               <span aria-hidden="true">·</span>
               <span>{a.jobs}+ jobs done</span>
             </p>
             <p class="mt-3 text-sm leading-relaxed text-muted">{a.note}</p>
-          </article>
+            <p class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors group-hover:text-amber-600">
+              Painters in {a.town}
+              <Icon name="arrow" class="h-4 w-4" />
+            </p>
+          </a>
         ))}
       </div>
 

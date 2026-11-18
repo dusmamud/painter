@@ -4,7 +4,8 @@ import PageHero from '../../components/PageHero.astro';
 import Picture from '../../components/Picture.astro';
 import Icon from '../../components/Icon.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
-import { services, processSteps } from '../../data/site';
+import TestimonialCard from '../../components/TestimonialCard.astro';
+import { services, processSteps, testimonials } from '../../data/site';
 
 const chipColors = ['bg-sun text-navy', 'bg-[#3d7bfa] text-white', 'bg-[#7c5cf0] text-white', 'bg-[#1e8a4c] text-white', 'bg-[#e8598b] text-white'];
 ---
@@ -53,6 +54,22 @@ const chipColors = ['bg-sun text-navy', 'bg-[#3d7bfa] text-white', 'bg-[#7c5cf0]
           </article>
         ))}
       </div>
+    </div>
+  </section>
+
+  <section class="bg-white pb-14 sm:pb-16" aria-label="What clients say">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="reveal">
+          <TestimonialCard name={testimonials[0].name} role={testimonials[0].role} avatar={testimonials[0].avatar} initials={testimonials[0].initials} quote={testimonials[0].quote} />
+        </div>
+        <div class="reveal" data-delay="0.1">
+          <TestimonialCard name={testimonials[2].name} role={testimonials[2].role} avatar={testimonials[2].avatar} initials={testimonials[2].initials} quote={testimonials[2].quote} />
+        </div>
+      </div>
+      <p class="reveal mt-6 text-center text-sm text-muted">
+        4.9 stars from 380+ verified reviews — <a href="/reviews/" class="font-semibold text-ink underline decoration-sun decoration-2 underline-offset-4 hover:text-amber-600">read them all</a>.
+      </p>
     </div>
   </section>
 

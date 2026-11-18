@@ -2,7 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
-import { site, contact, services } from '../data/site';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import { site, contact, services, testimonials } from '../data/site';
 
 const contactLd = {
   '@context': 'https://schema.org',
@@ -114,6 +115,17 @@ const inputClass =
           </p>
         </form>
       </div>
+    </div>
+  </section>
+
+  <section class="bg-cream py-14 sm:py-16" aria-label="What clients say">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+      <div class="reveal">
+        <TestimonialCard name={testimonials[1].name} role={testimonials[1].role} avatar={testimonials[1].avatar} initials={testimonials[1].initials} quote={testimonials[1].quote} />
+      </div>
+      <p class="reveal mt-6 text-center text-sm text-muted">
+        4.9 stars from 380+ verified reviews — <a href="/reviews/" class="font-semibold text-ink underline decoration-sun decoration-2 underline-offset-4 hover:text-amber-600">read them all</a>.
+      </p>
     </div>
   </section>
 </Layout>

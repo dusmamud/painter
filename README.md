@@ -23,23 +23,40 @@ Live: https://painter-static.pages.dev
 | TypeScript (strict) | 7.0.2 |
 | Node | ≥ 24 |
 
-Dev-only: `sharp` (image variants), `playwright-core` (QA screenshots).
+Dev-only: `sharp` (image variants), `playwright-core` (QA screenshots),
+`lucide-static` (canonical icon SVG source — see Icons below).
 No React/Vue/Svelte, no fontsource packages — fonts are self-hosted woff2 in
 `public/fonts` (Poppins 400–800, Caveat 600/700).
 
 GSAP 3.15 ships every plugin (ScrollTrigger, SplitText, Draggable) free in
-the public npm package — no Club membership needed. Framer Motion was
-deliberately not used: it is React-only, and GSAP is the framework-agnostic
-equivalent that fits Astro's static HTML + small scripts model.
+the public npm package — no Club membership needed. Motion (the library
+formerly known as Framer Motion) now ships a framework-agnostic vanilla
+package that would technically work in Astro, but GSAP stays the right
+engine here: this site's motion is timeline + scroll choreography (hero
+SplitText timeline, ScrollTrigger reveals/parallax/scrub), which is
+exactly where GSAP is strongest and where Motion's scroll API is thinnest.
+Running both engines would add bundle weight for no visible gain.
 
-## Pages (33 routes, 32 sitemap URLs)
+## Icons
+
+All UI icons are genuine [Lucide](https://lucide.dev) path data (MIT),
+generated into `src/components/Icon.astro` by
+`scripts/extract-icons.mjs` from the `lucide-static` package: 47 icons on
+the 24×24 grid, 2px stroke, round caps/joins, `currentColor`. Site names
+(`pin`, `roller`, `brush`…) are stable aliases, so Lucide renames never
+touch call sites. The star is the one deliberate exception — ratings render
+it filled. Social brand marks in the footer stay hand-drawn (Lucide ships
+no brand icons). Never hand-edit the paths; change the map in the script
+and re-run it.
+
+## Pages (41 routes, 40 sitemap URLs)
 
 Home, Services + 5 detail pages (interior, exterior, commercial, cabinet,
 color consultation), About, Projects + 6 case-study pages, Pricing, Contact,
-Instant Estimate (`/quote/`, interactive calculator), Reviews, Service Areas,
-Our Process, Color Visualizer, Our Guarantee, Blog + 4 posts, FAQ, Book a
-Consultation (mock calendar), Privacy, Terms, 404. The 404 page is excluded
-from the sitemap.
+Instant Estimate (`/quote/`, interactive calculator), Reviews, Service Areas
++ 8 town pages (`/areas/<town>/`), Our Process, Color Visualizer, Our
+Guarantee, Blog + 4 posts, FAQ, Book a Consultation (mock calendar),
+Privacy, Terms, 404. The 404 page is excluded from the sitemap.
 
 ## Scripts
 
@@ -74,7 +91,7 @@ Responsive-image rule (measured): `sizes` must be repeated on every `<source>`
 
 ## QA
 
-`scripts/qa-shots.mjs` serves `dist/` locally and screenshots 21 routes at
+`scripts/qa-shots.mjs` serves `dist/` locally and screenshots 22 routes at
 390/768/1024/1440 with Playwright, failing on horizontal overflow or console
 errors. It scrolls through each page first so ScrollTrigger reveals and lazy
 images fire before the full-page capture. Screenshots land in `qa/shots/`.

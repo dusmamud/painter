@@ -7,10 +7,10 @@ import ContactCTA from '../components/ContactCTA.astro';
 import { palettes } from '../data/site';
 
 const finishes = [
-  { name: 'Matte', sheen: 'No shine', text: 'Velvety and forgiving — hides wall flaws beautifully. Best for bedrooms, living rooms and ceilings.', rooms: 'Bedrooms · Living rooms · Ceilings' },
-  { name: 'Eggshell', sheen: 'Soft glow', text: 'A gentle glow that wipes clean. The all-rounder for busy family spaces.', rooms: 'Hallways · Kids\' rooms · Dining rooms' },
-  { name: 'Satin', sheen: 'Light shine', text: 'Tough, washable and moisture-resistant. The workhorse for wet and high-traffic areas.', rooms: 'Kitchens · Bathrooms · Trim' },
-  { name: 'Semi-Gloss', sheen: 'Noticeable shine', text: 'Maximum durability and a crisp, wipeable finish for woodwork and doors.', rooms: 'Doors · Cabinets · Window trim' },
+  { name: 'Matte', icon: 'circle-dashed', sheen: 'No shine', text: 'Velvety and forgiving — hides wall flaws beautifully. Best for bedrooms, living rooms and ceilings.', rooms: 'Bedrooms · Living rooms · Ceilings' },
+  { name: 'Eggshell', icon: 'egg', sheen: 'Soft glow', text: 'A gentle glow that wipes clean. The all-rounder for busy family spaces.', rooms: 'Hallways · Kids\' rooms · Dining rooms' },
+  { name: 'Satin', icon: 'feather', sheen: 'Light shine', text: 'Tough, washable and moisture-resistant. The workhorse for wet and high-traffic areas.', rooms: 'Kitchens · Bathrooms · Trim' },
+  { name: 'Semi-Gloss', icon: 'sun', sheen: 'Noticeable shine', text: 'Maximum durability and a crisp, wipeable finish for woodwork and doors.', rooms: 'Doors · Cabinets · Window trim' },
 ];
 ---
 
@@ -77,7 +77,7 @@ const finishes = [
         {finishes.map((f, i) => (
           <article class="reveal rounded-3xl bg-white p-6 ring-1 ring-line" data-delay={String(i * 0.08)}>
             <span class="grid h-12 w-12 place-items-center rounded-2xl bg-sun-soft text-sun-deep">
-              <Icon name="droplet" class="h-6 w-6" />
+              <Icon name={f.icon as 'circle-dashed' | 'egg' | 'feather' | 'sun'} class="h-6 w-6" />
             </span>
             <h3 class="mt-4 text-lg font-bold text-ink">{f.name}</h3>
             <p class="mt-0.5 text-xs font-semibold uppercase tracking-wider text-amber-600">{f.sheen}</p>
