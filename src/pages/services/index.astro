@@ -6,7 +6,7 @@ import Icon from '../../components/Icon.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
 import { services, processSteps } from '../../data/site';
 
-const chipColors = ['bg-sun text-navy', 'bg-[#3d7bfa] text-white', 'bg-[#7c5cf0] text-white', 'bg-[#e8598b] text-white'];
+const chipColors = ['bg-sun text-navy', 'bg-[#3d7bfa] text-white', 'bg-[#7c5cf0] text-white', 'bg-[#1e8a4c] text-white', 'bg-[#e8598b] text-white'];
 ---
 
 <Layout
@@ -36,7 +36,7 @@ const chipColors = ['bg-sun text-navy', 'bg-[#3d7bfa] text-white', 'bg-[#7c5cf0]
             </div>
             <div class="relative flex flex-1 flex-col px-6 pb-6">
               <span class={`relative z-10 -mt-7 grid h-14 w-14 place-items-center rounded-full ring-4 ring-white ${chipColors[i]}`}>
-                <Icon name={s.icon as 'roller' | 'home' | 'building' | 'palette'} class="h-6 w-6" />
+                <Icon name={s.icon as 'roller' | 'home' | 'building' | 'brush' | 'palette'} class="h-6 w-6" />
               </span>
               <h2 class="mt-4 text-xl font-bold text-ink">
                 <a href={`/services/${s.slug}/`} class="transition-colors hover:text-amber-600">{s.title}</a>

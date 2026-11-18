@@ -1,0 +1,170 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { contact, services } from '../data/site';
+
+const inputClass =
+  'w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-muted/70 outline-none transition focus:border-sun-deep focus:ring-2 focus:ring-sun/60';
+---
+
+<Layout
+  title="Book a Free Consultation — Pick a Day & Time | Painter"
+  description="Book a free in-home color consultation or estimate visit. Pick a day and time that suits you — we confirm within one business day."
+>
+  <PageHero
+    eyebrow="Book a Visit"
+    title="Pick a Day. We'll Bring the Swatches."
+    description="A free 30-minute visit: we measure, talk colors, and leave a fixed quote. Choose a slot below — no payment, no obligation."
+  />
+
+  <section class="bg-white py-14 sm:py-16">
+    <div class="mx-auto grid max-w-7xl items-start gap-8 px-4 sm:px-6 lg:grid-cols-5 lg:gap-10 lg:px-8">
+      <div class="reveal rounded-3xl bg-white p-6 ring-1 ring-line shadow-[0_18px_45px_-18px_rgba(12,21,38,0.25)] sm:p-7 lg:col-span-3" data-book-calendar>
+        <h2 class="text-xl font-bold text-ink">Choose a day</h2>
+        <p class="mt-1 text-sm text-muted">Monday–Saturday, next two weeks. Greyed-out slots are already booked.</p>
+        <div data-book-days class="mt-5 grid grid-cols-4 gap-2 sm:grid-cols-6" role="group" aria-label="Available days"></div>
+        <h3 class="mt-7 text-base font-bold text-ink">Choose a time</h3>
+        <div data-book-slots class="mt-3 flex flex-wrap gap-2" role="group" aria-label="Available times">
+          <p class="text-sm text-muted">Pick a day first to see open times.</p>
+        </div>
+        <div class="mt-7 flex items-start gap-3 rounded-2xl bg-cream p-4 ring-1 ring-line">
+          <Icon name="shield" class="mt-0.5 h-5 w-5 shrink-0 text-sun-deep" />
+          <p class="text-sm leading-relaxed text-muted">
+            Free, no-obligation visit. We confirm by phone or email within one business day — your slot is held once we confirm.
+          </p>
+        </div>
+      </div>
+
+      <div class="reveal lg:col-span-2" data-delay="0.1">
+        <form
+          data-mailto-form
+          data-mailto={contact.email}
+          data-subject="Consultation booking from painter-static.pages.dev"
+          class="rounded-3xl bg-cream p-6 ring-1 ring-line sm:p-7"
+          novalidate
+        >
+          <h2 class="text-xl font-bold text-ink">Your details</h2>
+          <div class="mt-5 grid grid-cols-2 gap-4">
+            <div>
+              <label for="b-date" class="mb-1.5 block text-sm font-medium text-ink">Date *</label>
+              <input id="b-date" name="date" type="text" required readonly placeholder="Pick a day" data-book-date-input class={`${inputClass} cursor-pointer bg-white`} />
+            </div>
+            <div>
+              <label for="b-time" class="mb-1.5 block text-sm font-medium text-ink">Time *</label>
+              <input id="b-time" name="time" type="text" required readonly placeholder="Pick a time" data-book-time-input class={`${inputClass} cursor-pointer bg-white`} />
+            </div>
+          </div>
+          <div class="mt-4 space-y-4">
+            <div>
+              <label for="b-name" class="mb-1.5 block text-sm font-medium text-ink">Your name *</label>
+              <input id="b-name" name="name" type="text" required autocomplete="name" placeholder="Jane Smith" class={inputClass} />
+            </div>
+            <div>
+              <label for="b-phone" class="mb-1.5 block text-sm font-medium text-ink">Phone *</label>
+              <input id="b-phone" name="phone" type="tel" required autocomplete="tel" placeholder="+1 234 567 8900" class={inputClass} />
+            </div>
+            <div>
+              <label for="b-service" class="mb-1.5 block text-sm font-medium text-ink">What is it about? *</label>
+              <select id="b-service" name="service" required class={inputClass}>
+                <option value="" disabled selected>Choose a topic</option>
+                {services.map((s) => <option value={s.title}>{s.title}</option>)}
+                <option value="Something else">Something else</option>
+              </select>
+            </div>
+            <div>
+              <label for="b-address" class="mb-1.5 block text-sm font-medium text-ink">Address</label>
+              <input id="b-address" name="address" type="text" autocomplete="street-address" placeholder="Street, town" class={inputClass} />
+            </div>
+          </div>
+          <button type="submit" class="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-sun px-6 py-3.5 text-sm font-semibold text-navy transition hover:bg-sun-deep">
+            Request This Slot
+            <Icon name="arrow" class="h-4 w-4" />
+          </button>
+          <p class="mt-4 text-center text-sm text-muted">
+            Rather call? <a href={contact.phoneHref} class="font-semibold text-ink underline decoration-sun decoration-2 underline-offset-4 hover:text-amber-600">{contact.phoneDisplay}</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const root = document.querySelector('[data-book-calendar]');
+  const dateInput = document.querySelector<HTMLInputElement>('[data-book-date-input]');
+  const timeInput = document.querySelector<HTMLInputElement>('[data-book-time-input]');
+  const daysEl = root?.querySelector('[data-book-days]');
+  const slotsEl = root?.querySelector('[data-book-slots]');
+  const TIMES = ['9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:30 PM', '3:30 PM', '4:30 PM'];
+
+  if (root && daysEl && slotsEl && dateInput && timeInput) {
+    const days: Date[] = [];
+    const cursor = new Date();
+    cursor.setDate(cursor.getDate() + 1);
+    while (days.length < 12) {
+      const dow = cursor.getDay();
+      if (dow !== 0) days.push(new Date(cursor));
+      cursor.setDate(cursor.getDate() + 1);
+    }
+    let selectedDay = -1;
+    const dayLabel = (d: Date) => d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    const isTaken = (dayIdx: number, slotIdx: number) => (dayIdx * 7 + slotIdx * 13 + 3) % 5 === 0;
+
+    const renderSlots = () => {
+      slotsEl.innerHTML = '';
+      TIMES.forEach((time, si) => {
+        const taken = isTaken(selectedDay, si);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = time;
+        btn.disabled = taken;
+        btn.setAttribute('aria-label', taken ? `${time}, already booked` : `Book ${time}`);
+        btn.className = taken
+          ? 'cursor-not-allowed rounded-full bg-cream px-4 py-2.5 text-sm font-medium text-muted/50 line-through ring-1 ring-line'
+          : 'rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-ink ring-1 ring-line transition hover:border-navy';
+        btn.addEventListener('click', () => {
+          slotsEl.querySelectorAll('button').forEach((b) => {
+            if (b.disabled) return;
+            b.classList.remove('bg-navy', 'text-white');
+            b.classList.add('bg-white', 'text-ink');
+          });
+          btn.classList.add('bg-navy', 'text-white');
+          btn.classList.remove('bg-white', 'text-ink');
+          timeInput.value = time;
+          timeInput.classList.remove('ring-2', 'ring-red-500');
+          timeInput.setAttribute('aria-invalid', 'false');
+        });
+        slotsEl.appendChild(btn);
+      });
+    };
+
+    days.forEach((day, di) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.setAttribute('aria-pressed', 'false');
+      btn.className = 'rounded-2xl bg-white px-2 py-3 text-center ring-1 ring-line transition hover:border-navy';
+      btn.innerHTML = `<span class="block text-xs font-medium text-muted">${day.toLocaleDateString('en-US', { weekday: 'short' })}</span><span class="mt-0.5 block text-lg font-bold text-ink">${day.getDate()}</span><span class="block text-xs font-medium text-muted">${day.toLocaleDateString('en-US', { month: 'short' })}</span>`;
+      btn.addEventListener('click', () => {
+        selectedDay = di;
+        daysEl.querySelectorAll('button').forEach((b) => {
+          const active = b === btn;
+          b.setAttribute('aria-pressed', String(active));
+          b.classList.toggle('bg-navy', active);
+          b.classList.toggle('bg-white', !active);
+          b.querySelectorAll('span').forEach((s) => {
+            s.classList.toggle('text-white', active);
+            s.classList.toggle('text-muted', !active && !s.classList.contains('text-lg'));
+            s.classList.toggle('text-ink', !active && s.classList.contains('text-lg'));
+          });
+        });
+        dateInput.value = dayLabel(day);
+        dateInput.classList.remove('ring-2', 'ring-red-500');
+        dateInput.setAttribute('aria-invalid', 'false');
+        timeInput.value = '';
+        renderSlots();
+      });
+      daysEl.appendChild(btn);
+    });
+  }
+</script>

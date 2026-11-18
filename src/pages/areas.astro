@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { site, contact, areas } from '../data/site';
+
+const areasLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HousePainter',
+  '@id': `${site.url}/#business`,
+  name: site.name,
+  url: `${site.url}/`,
+  telephone: contact.phoneDisplay,
+  areaServed: areas.map((a) => ({ '@type': 'City', name: `${a.town}, CA` })),
+};
+---
+
+<Layout
+  title="Service Areas — 25+ Cities Around Paintville, CA | Painter"
+  description="Painter serves Paintville and 25+ nearby cities: Maplewood, Oakdale, Riverside, Brookfield and more. Free quotes everywhere we work."
+  extraJsonLd={[areasLd]}
+>
+  <PageHero
+    eyebrow="Where We Work"
+    title="Proudly Painting 25+ Cities"
+    description="Based in Paintville, on the road every weekday. If your town is on this list, a free quote is one call away — and for larger projects, we travel further."
+  />
+
+  <section class="bg-white py-14 sm:py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {areas.map((a, i) => (
+          <article class="reveal rounded-3xl bg-white p-6 ring-1 ring-line transition-shadow duration-300 hover:shadow-[0_20px_45px_-18px_rgba(12,21,38,0.3)]" data-delay={String((i % 4) * 0.08)}>
+            <span class="grid h-12 w-12 place-items-center rounded-2xl bg-sun-soft text-sun-deep">
+              <Icon name="pin" class="h-6 w-6" />
+            </span>
+            <h2 class="mt-4 text-lg font-bold text-ink">{a.town}, CA</h2>
+            <p class="mt-1 flex flex-wrap gap-x-3 text-sm text-muted">
+              <span>{a.distance}</span>
+              <span aria-hidden="true">·</span>
+              <span>{a.jobs}+ jobs done</span>
+            </p>
+            <p class="mt-3 text-sm leading-relaxed text-muted">{a.note}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="reveal mt-10 overflow-hidden rounded-[2rem] bg-navy p-7 sm:p-10">
+        <div class="grid items-center gap-6 lg:grid-cols-[1fr_auto]">
+          <div>
+            <h2 class="text-2xl font-bold leading-snug text-white sm:text-3xl">Don&apos;t see your town?</h2>
+            <p class="mt-2 max-w-xl text-sm leading-relaxed text-white/70 sm:text-base">
+              We regularly travel beyond this list for whole-home, exterior and commercial projects — and the quote is
+              still free. Ask us; the worst we can say is "not this month."
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <a href={contact.phoneHref} class="inline-flex items-center gap-2 rounded-full bg-sun px-6 py-3 text-sm font-semibold text-navy transition hover:bg-sun-deep">
+              <Icon name="phone" class="h-4 w-4" />
+              {contact.phoneDisplay}
+            </a>
+            <a href="/quote/" class="inline-flex items-center gap-2 rounded-full border border-white/25 bg-navy-2 px-6 py-3 text-sm font-semibold text-white transition hover:border-white">
+              Get an Estimate
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA />
+</Layout>

@@ -23,10 +23,28 @@
 @font-face { font-family: "Caveat"; src: url("/fonts/caveat-600.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
 @font-face { font-family: "Caveat"; src: url("/fonts/caveat-700.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; }
 html, body { overflow-x: clip; }
 body { background: #fff; color: var(--color-ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
 ::selection { background: var(--color-sun); color: var(--color-navy); }
+
+/* Sticky header slides away on scroll down, back on scroll up. */
+#site-header { transition: transform 0.35s ease, box-shadow 0.3s ease; }
+#site-header.header-hidden { transform: translateY(-100%); }
+
+/* Marquee ticker: two identical rows, translate -50% for a seamless loop. */
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.animate-marquee { animation: marquee 30s linear infinite; }
+.animate-marquee:hover { animation-play-state: paused; }
+
+/* Sticky mobile CTA slides away while the mobile menu is open, so it
+   never covers the menu's own call-to-action. */
+html[data-menu-open] #sticky-cta { transform: translateY(100%); }
+
+/* Testimonial slider: native swipe + scroll-snap; buttons scroll it. */
+.tsnap { scroll-snap-type: x mandatory; scrollbar-width: none; }
+.tsnap::-webkit-scrollbar { display: none; }
+.tsnap > * { scroll-snap-align: start; }
 
 /* Script accent words ("Better.", "Color") sit slightly larger than the
    surrounding heading so the handwriting reads at the same weight. */

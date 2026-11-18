@@ -1,0 +1,102 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Picture from '../../components/Picture.astro';
+import Icon from '../../components/Icon.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+import { site, blogPosts } from '../../data/site';
+
+const [featured, ...rest] = blogPosts;
+const fmtDate = (d: string) => new Date(`${d}T09:00:00-08:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+const blogLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: 'Painter Blog',
+  url: `${site.url}/blog/`,
+  description: 'Paint color trends, prep guides and honest advice from professional painters.',
+  blogPost: blogPosts.map((p) => ({
+    '@type': 'BlogPosting',
+    headline: p.title,
+    url: `${site.url}/blog/${p.slug}/`,
+    datePublished: `${p.date}T09:00:00-08:00`,
+    author: { '@type': 'Person', name: p.author },
+  })),
+};
+---
+
+<Layout
+  title="Painter Blog — Color Trends, Prep Guides & Honest Advice"
+  description="Paint color trends, wall prep guides, exterior timing and cabinet math — honest, practical advice from professional painters."
+  extraJsonLd={[blogLd]}
+>
+  <PageHero
+    eyebrow="Blog"
+    title="Paint Smarter, Not Harder"
+    description="Color trends, prep guides and honest numbers from people who paint for a living. No fluff, no sponsored paint — just what works."
+  />
+
+  <section class="bg-white py-14 sm:py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <article class="reveal group grid overflow-hidden rounded-3xl bg-white ring-1 ring-line transition-shadow duration-300 hover:shadow-[0_20px_45px_-18px_rgba(12,21,38,0.3)] lg:grid-cols-2">
+        <a href={`/blog/${featured.slug}/`} class="block h-64 overflow-hidden lg:h-full" tabindex="-1" aria-hidden="true">
+          <Picture
+            src={featured.image}
+            alt=""
+            sizes="(max-width: 1023px) 92vw, 46vw"
+            widths={[480, 800, 1200]}
+            loading="eager"
+            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            pictureClass="block h-full w-full"
+          />
+        </a>
+        <div class="p-6 sm:p-8">
+          <p class="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-wider">
+            <span class="rounded-full bg-sun px-3 py-1 text-navy">Featured</span>
+            <span class="text-amber-600">{featured.category}</span>
+          </p>
+          <h2 class="mt-4 text-2xl font-bold leading-tight tracking-tight text-ink sm:text-3xl">
+            <a href={`/blog/${featured.slug}/`} class="transition-colors hover:text-amber-600">{featured.title}</a>
+          </h2>
+          <p class="mt-3 text-[15px] leading-relaxed text-muted">{featured.excerpt}</p>
+          <p class="mt-5 text-sm text-muted">
+            {featured.author} · {fmtDate(featured.date)} · {featured.readTime} min read
+          </p>
+          <a href={`/blog/${featured.slug}/`} class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors hover:text-amber-600">
+            Read Article
+            <Icon name="arrow" class="h-4 w-4" />
+          </a>
+        </div>
+      </article>
+
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {rest.map((p, i) => (
+          <article class="reveal group overflow-hidden rounded-3xl bg-white ring-1 ring-line transition-shadow duration-300 hover:shadow-[0_20px_45px_-18px_rgba(12,21,38,0.3)]" data-delay={String(i * 0.1)}>
+            <a href={`/blog/${p.slug}/`} class="block h-48 overflow-hidden" tabindex="-1" aria-hidden="true">
+              <Picture
+                src={p.image}
+                alt=""
+                sizes="(max-width: 639px) 92vw, (max-width: 1023px) 46vw, 380px"
+                widths={[480, 800, 1200]}
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                pictureClass="block h-full w-full"
+              />
+            </a>
+            <div class="p-6">
+              <p class="text-xs font-semibold uppercase tracking-wider text-amber-600">{p.category}</p>
+              <h3 class="mt-2.5 text-lg font-bold leading-snug text-ink">
+                <a href={`/blog/${p.slug}/`} class="transition-colors hover:text-amber-600">{p.title}</a>
+              </h3>
+              <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">{p.excerpt}</p>
+              <p class="mt-4 text-sm text-muted">
+                {p.author} · {fmtDate(p.date)} · {p.readTime} min read
+              </p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA />
+</Layout>

@@ -1,11 +1,24 @@
 ---
-import { navLinks } from '../data/site';
+import { navLinks, moreLinks } from '../data/site';
 
 const current = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isActive = (href: string) => (href === '/' ? current === '/' : current.startsWith(href.replace(/\/$/, '')));
+const moreActive = moreLinks.some((l) => isActive(l.href));
 ---
 
+<div id="ann-bar" class="relative bg-navy px-4 py-2.5 text-center text-[13px] font-medium text-white sm:text-sm">
+  <p class="mx-auto max-w-7xl pr-8">
+    <span class="mr-1.5 rounded-full bg-sun px-2 py-0.5 text-xs font-bold text-navy">20% OFF</span>
+    Summer Refresh: 20% off interior painting when you book by Dec 15.
+    <a href="/quote/" class="ml-1.5 font-semibold text-sun underline decoration-sun/50 underline-offset-2 hover:text-white">Get your estimate →</a>
+  </p>
+  <button type="button" id="ann-dismiss" class="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-white/70 transition hover:text-white" aria-label="Dismiss announcement">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="h-4 w-4" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg>
+  </button>
+</div>
+
 <header id="site-header" class="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur transition-shadow duration-300">
+  <div id="scroll-progress" class="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 bg-sun" aria-hidden="true"></div>
   <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:h-[72px] sm:px-6 lg:px-8">
     <a href="/" class="flex items-center gap-2" aria-label="Painter — home">
       <span class="grid h-10 w-10 place-items-center rounded-full bg-sun text-navy">
@@ -18,7 +31,7 @@ const isActive = (href: string) => (href === '/' ? current === '/' : current.sta
       <span class="text-xl font-bold tracking-tight text-ink">Painter</span>
     </a>
 
-    <nav class="hidden items-center gap-8 lg:flex" aria-label="Primary">
+    <nav class="hidden items-center gap-7 lg:flex" aria-label="Primary">
       {navLinks.map((link) => (
         <a
           href={link.href}
@@ -29,10 +42,36 @@ const isActive = (href: string) => (href === '/' ? current === '/' : current.sta
           {isActive(link.href) && <span class="absolute inset-x-0 -bottom-0.5 h-[3px] rounded-full bg-sun" aria-hidden="true"></span>}
         </a>
       ))}
+      <div class="relative" id="more-wrap">
+        <button
+          id="more-btn"
+          type="button"
+          class={`relative flex items-center gap-1 py-2 text-[15px] transition-colors ${moreActive ? 'font-semibold text-ink' : 'font-medium text-muted hover:text-ink'}`}
+          aria-expanded="false"
+          aria-haspopup="true"
+          aria-controls="more-panel"
+        >
+          More
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 transition-transform duration-200" id="more-chevron" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+          {moreActive && <span class="absolute inset-x-0 -bottom-0.5 h-[3px] rounded-full bg-sun" aria-hidden="true"></span>}
+        </button>
+        <div id="more-panel" class="invisible absolute right-0 top-full z-50 mt-2 w-60 translate-y-1 rounded-2xl bg-white p-2 opacity-0 shadow-[0_24px_50px_-16px_rgba(12,21,38,0.35)] ring-1 ring-line transition-all duration-200" role="menu">
+          {moreLinks.map((link) => (
+            <a
+              href={link.href}
+              role="menuitem"
+              aria-current={isActive(link.href) ? 'page' : undefined}
+              class={`block rounded-xl px-3.5 py-2.5 text-sm ${isActive(link.href) ? 'bg-sun-soft font-semibold text-ink' : 'font-medium text-muted hover:bg-cream hover:text-ink'}`}
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
     </nav>
 
     <div class="flex items-center gap-3">
-      <a href="/contact/" class="hidden items-center gap-2 rounded-full bg-sun px-5 py-2.5 text-sm font-semibold text-navy transition hover:bg-sun-deep sm:inline-flex">
+      <a href="/quote/" class="hidden items-center gap-2 rounded-full bg-sun px-5 py-2.5 text-sm font-semibold text-navy transition hover:bg-sun-deep sm:inline-flex">
         Request a Quote
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
       </a>
@@ -48,7 +87,7 @@ const isActive = (href: string) => (href === '/' ? current === '/' : current.sta
     </div>
   </div>
 
-  <div id="mobile-menu" class="hidden border-t border-line bg-white lg:hidden">
+  <div id="mobile-menu" class="hidden max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-line bg-white lg:hidden">
     <nav class="mx-auto flex max-w-7xl flex-col px-4 py-3 sm:px-6" aria-label="Mobile">
       {navLinks.map((link) => (
         <a
@@ -59,7 +98,17 @@ const isActive = (href: string) => (href === '/' ? current === '/' : current.sta
           {link.label}
         </a>
       ))}
-      <a href="/contact/" class="mt-3 inline-flex items-center justify-center gap-2 rounded-full bg-sun px-5 py-3 text-sm font-semibold text-navy sm:hidden">
+      <p class="px-3 pb-1 pt-4 text-xs font-semibold uppercase tracking-[0.18em] text-muted">More</p>
+      {moreLinks.map((link) => (
+        <a
+          href={link.href}
+          aria-current={isActive(link.href) ? 'page' : undefined}
+          class={`rounded-xl px-3 py-2.5 text-[15px] ${isActive(link.href) ? 'bg-sun-soft font-semibold text-ink' : 'font-medium text-muted hover:bg-cream hover:text-ink'}`}
+        >
+          {link.label}
+        </a>
+      ))}
+      <a href="/quote/" class="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-sun px-5 py-3 text-sm font-semibold text-navy sm:hidden">
         Request a Quote
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
       </a>
@@ -74,10 +123,50 @@ const isActive = (href: string) => (href === '/' ? current === '/' : current.sta
     menu?.classList.toggle('hidden', !open);
     btn?.setAttribute('aria-expanded', open ? 'true' : 'false');
     btn?.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    // Keep the sticky mobile CTA out of the way while the menu is open.
+    if (open) document.documentElement.setAttribute('data-menu-open', '');
+    else document.documentElement.removeAttribute('data-menu-open');
   };
   btn?.addEventListener('click', () => setMenu(menu?.classList.contains('hidden') ?? false));
   menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+
+  const moreBtn = document.getElementById('more-btn');
+  const morePanel = document.getElementById('more-panel');
+  const moreChevron = document.getElementById('more-chevron');
+  const setMore = (open: boolean) => {
+    moreBtn?.setAttribute('aria-expanded', open ? 'true' : 'false');
+    morePanel?.classList.toggle('invisible', !open);
+    morePanel?.classList.toggle('opacity-0', !open);
+    morePanel?.classList.toggle('translate-y-1', !open);
+    moreChevron?.classList.toggle('rotate-180', open);
+  };
+  moreBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setMore(moreBtn.getAttribute('aria-expanded') !== 'true');
+  });
+  morePanel?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMore(false)));
+  document.addEventListener('click', (e) => {
+    if (!(e.target as HTMLElement).closest('#more-wrap')) setMore(false);
+  });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') setMenu(false);
+    if (e.key === 'Escape') {
+      setMenu(false);
+      setMore(false);
+    }
+  });
+
+  const annBar = document.getElementById('ann-bar');
+  try {
+    if (window.localStorage.getItem('painter-ann-dismissed') === '1') annBar?.remove();
+  } catch {
+    /* storage unavailable — bar stays */
+  }
+  document.getElementById('ann-dismiss')?.addEventListener('click', () => {
+    try {
+      window.localStorage.setItem('painter-ann-dismissed', '1');
+    } catch {
+      /* ignore */
+    }
+    annBar?.remove();
   });
 </script>

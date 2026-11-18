@@ -15,11 +15,22 @@ const labels: Record<string, string> = {
   contact: 'Contact',
   privacy: 'Privacy Policy',
   terms: 'Terms & Conditions',
+  quote: 'Instant Estimate',
+  reviews: 'Reviews',
+  areas: 'Service Areas',
+  process: 'Our Process',
+  colors: 'Color Visualizer',
+  guarantee: 'Our Guarantee',
+  blog: 'Blog',
+  faq: 'FAQ',
+  book: 'Book a Consultation',
   'interior-painting': 'Interior Painting',
   'exterior-painting': 'Exterior Painting',
   'commercial-painting': 'Commercial Painting',
+  'cabinet-painting': 'Cabinet Painting',
   'color-consultation': 'Color Consultation',
 };
+const labelFor = (p: string) => labels[p] ?? p.replace(/-/g, ' ').replace(/\b\w/g, (m) => m.toUpperCase());
 ---
 
 <section class="relative overflow-hidden bg-cream">
@@ -32,9 +43,9 @@ const labels: Record<string, string> = {
           <li class="flex items-center gap-1.5">
             <span aria-hidden="true">/</span>
             {i === parts.length - 1 ? (
-              <span aria-current="page" class="font-medium text-ink">{labels[p] ?? p}</span>
+              <span aria-current="page" class="font-medium text-ink">{labelFor(p)}</span>
             ) : (
-              <a href={`/${parts.slice(0, i + 1).join('/')}/`} class="transition-colors hover:text-ink">{labels[p] ?? p}</a>
+              <a href={`/${parts.slice(0, i + 1).join('/')}/`} class="transition-colors hover:text-ink">{labelFor(p)}</a>
             )}
           </li>
         ))}

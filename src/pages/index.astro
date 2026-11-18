@@ -2,7 +2,11 @@
 import Layout from '../layouts/Layout.astro';
 import Picture from '../components/Picture.astro';
 import Icon from '../components/Icon.astro';
-import { site, contact, services, features, stats, whyChooseUs, testimonials } from '../data/site';
+import Marquee from '../components/Marquee.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { site, contact, services, features, stats, whyChooseUs, testimonials, palettes } from '../data/site';
 
 const homeServices = services.slice(0, 3);
 const chipColors = ['bg-sun text-navy', 'bg-[#3d7bfa] text-white', 'bg-[#7c5cf0] text-white'];
@@ -42,31 +46,31 @@ const housePainterLd = {
   extraJsonLd={[housePainterLd]}
 >
   <!-- Hero -->
-  <section class="overflow-hidden bg-white">
+  <section class="overflow-hidden bg-white" data-hero>
     <div class="mx-auto grid max-w-7xl gap-10 px-4 pb-12 pt-10 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-6 lg:px-8 lg:pb-16 lg:pt-14">
-      <div class="reveal">
-        <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-amber-600">
+      <div>
+        <p data-hero-eyebrow class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-amber-600">
           <span class="h-[2px] w-7 bg-sun" aria-hidden="true"></span>
           Professional Painting Services
         </p>
-        <h1 class="mt-4 text-[2.65rem] font-extrabold leading-[1.05] tracking-tight text-ink sm:text-6xl lg:text-[4.15rem]">
+        <h1 data-hero-title class="mt-4 text-[2.65rem] font-extrabold leading-[1.05] tracking-tight text-ink sm:text-6xl lg:text-[4.15rem]">
           We Paint Spaces.<br />
           You Live <span class="swoosh font-script font-bold text-sun-deep">Better.</span>
         </h1>
-        <p class="mt-5 max-w-md text-base leading-relaxed text-muted sm:text-lg">
+        <p data-hero-sub class="mt-5 max-w-md text-base leading-relaxed text-muted sm:text-lg">
           Quality finishes, vibrant colors, and flawless results that bring your space to life.
         </p>
         <div class="mt-7 flex flex-wrap items-center gap-3">
-          <a href="/services/" class="inline-flex items-center gap-2 rounded-full bg-sun px-6 py-3 text-sm font-semibold text-navy transition hover:bg-sun-deep">
+          <a data-hero-cta data-magnetic href="/services/" class="inline-flex items-center gap-2 rounded-full bg-sun px-6 py-3 text-sm font-semibold text-navy transition-colors hover:bg-sun-deep">
             Explore Services
             <Icon name="arrow" class="h-4 w-4" />
           </a>
-          <a href="/about/#process" class="inline-flex items-center gap-2 rounded-full border border-line bg-white px-6 py-3 text-sm font-semibold text-ink transition hover:border-ink">
+          <a data-hero-cta href="/process/" class="inline-flex items-center gap-2 rounded-full border border-line bg-white px-6 py-3 text-sm font-semibold text-ink transition-colors hover:border-ink">
             <Icon name="play" class="h-5 w-5 text-sun-deep" />
             How It Works
           </a>
         </div>
-        <div class="mt-9 flex items-center gap-4">
+        <div data-hero-trust class="mt-9 flex items-center gap-4">
           <div class="flex -space-x-3">
             {testimonials.slice(0, 4).map((t) => (
               <Picture src={t.avatar} alt="" sizes="40px" widths={[96, 160]} class="h-10 w-10 rounded-full object-cover ring-2 ring-white" />
@@ -88,18 +92,20 @@ const housePainterLd = {
         </div>
       </div>
 
-      <div class="reveal relative mx-auto h-[430px] w-full max-w-[520px] sm:h-[520px] lg:h-[580px] lg:max-w-none" data-delay="0.15">
-        <Picture
-          src="/images/splash-flat-cut.png"
-          alt=""
-          sizes="(max-width: 1023px) 95vw, 560px"
-          widths={[640, 1000, 1400]}
-          transparent
-          loading="eager"
-          fetchpriority="low"
-          class="h-full w-full object-contain"
-          pictureClass="absolute -left-[4%] top-[2%] block w-[108%] -rotate-3"
-        />
+      <div data-hero-visual class="relative mx-auto h-[430px] w-full max-w-[520px] sm:h-[520px] lg:h-[580px] lg:max-w-none">
+        <div class="absolute -left-[4%] top-[2%] block w-[108%] -rotate-3" data-parallax="10">
+          <Picture
+            src="/images/splash-flat-cut.png"
+            alt=""
+            sizes="(max-width: 1023px) 95vw, 560px"
+            widths={[640, 1000, 1400]}
+            transparent
+            loading="eager"
+            fetchpriority="low"
+            class="h-full w-full object-contain"
+            pictureClass="block"
+          />
+        </div>
         <div class="absolute right-0 top-0 h-[76%] w-[44%] overflow-hidden rounded-b-[1.5rem] rounded-t-full ring-1 ring-line/50">
           <Picture
             src="/images/hero-living-room.jpg"
@@ -127,7 +133,7 @@ const housePainterLd = {
           class="h-full w-auto object-contain"
           pictureClass="absolute bottom-0 left-[4%] z-10 block h-[97%]"
         />
-        <div class="absolute bottom-[15%] left-0 z-20 flex items-center gap-3 rounded-2xl bg-navy px-4 py-3 shadow-xl">
+        <div data-hero-badge class="absolute bottom-[15%] left-0 z-20 flex items-center gap-3 rounded-2xl bg-navy px-4 py-3 shadow-xl">
           <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white/10 text-sun">
             <Icon name="trophy" class="h-5 w-5" />
           </span>
@@ -143,6 +149,9 @@ const housePainterLd = {
       </div>
     </div>
   </section>
+
+  <!-- Marquee -->
+  <Marquee items={['Interior Painting', 'Exterior Painting', 'Cabinet Painting', 'Color Consultation', 'Commercial Painting', '5-Year Warranty', 'Free Quotes']} />
 
   <!-- Trust bar -->
   <section class="bg-white pb-4" aria-label="Why choose Painter">
@@ -283,7 +292,7 @@ const housePainterLd = {
             Let&apos;s make your walls beautiful.<br />
             Get a free quote today!
           </p>
-          <a href="/contact/" class="mt-6 inline-flex items-center gap-2 rounded-full bg-sun px-6 py-3 text-sm font-semibold text-navy transition hover:bg-sun-deep">
+          <a data-magnetic href="/quote/" class="mt-6 inline-flex items-center gap-2 rounded-full bg-sun px-6 py-3 text-sm font-semibold text-navy transition-colors hover:bg-sun-deep">
             Get a Free Quote
             <Icon name="arrow" class="h-4 w-4" />
           </a>
@@ -295,4 +304,109 @@ const housePainterLd = {
       </div>
     </div>
   </section>
+
+  <!-- Before / After -->
+  <section class="bg-cream py-16 sm:py-20" aria-labelledby="ba-heading">
+    <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-14 lg:px-8">
+      <div class="reveal">
+        <p class="text-xs font-semibold uppercase tracking-[0.22em] text-amber-600">Before &amp; After</p>
+        <h2 id="ba-heading" class="mt-3 text-3xl font-bold leading-[1.15] tracking-tight text-ink sm:text-4xl">
+          Drag the Slider.<br />
+          See the <span class="swoosh font-script font-bold text-sun-deep">Difference.</span>
+        </h2>
+        <p class="mt-4 max-w-md text-base leading-relaxed text-muted">
+          Same room, same light — two days apart. Full prep, two coats of premium paint, and a finish that lasts for years.
+        </p>
+        <ul class="mt-6 space-y-3">
+          {['Full prep included in every quote', 'Premium low-odour paints', '5-year workmanship warranty'].map((item) => (
+            <li class="flex items-center gap-3 text-[15px] font-medium text-ink">
+              <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-sun text-navy">
+                <Icon name="check" class="h-3.5 w-3.5" />
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
+        <a href="/projects/" class="mt-7 inline-flex items-center gap-2 rounded-full bg-navy px-6 py-3 text-sm font-semibold text-white transition hover:bg-navy-2">
+          View All Projects
+          <Icon name="arrow" class="h-4 w-4" />
+        </a>
+      </div>
+      <div class="reveal" data-delay="0.1">
+        <BeforeAfter image="/images/project-bedroom.jpg" alt="Calm sage bedroom with soft neutral bedding" sizes="(max-width: 1023px) 92vw, 46vw" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Colors teaser -->
+  <section class="bg-white py-16 sm:py-20" aria-labelledby="colors-heading">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="reveal mx-auto max-w-xl text-center">
+        <p class="text-xs font-semibold uppercase tracking-[0.22em] text-amber-600">Find Your Color</p>
+        <h2 id="colors-heading" class="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl">Palettes That Always Work</h2>
+        <p class="mt-3 text-base leading-relaxed text-muted">
+          Curated by our color consultants — then previewed on a real room with our visualizer.
+        </p>
+      </div>
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {palettes.slice(0, 4).map((p, i) => (
+          <a href="/colors/" class="reveal group block overflow-hidden rounded-3xl bg-white ring-1 ring-line transition-shadow duration-300 hover:shadow-[0_20px_45px_-18px_rgba(12,21,38,0.3)]" data-delay={String(i * 0.08)}>
+            <div class="flex h-24">
+              {p.colors.map((c) => (
+                <span class="flex-1 transition-transform duration-300 group-hover:scale-y-105" style={`background-color: ${c};`} aria-hidden="true"></span>
+              ))}
+            </div>
+            <div class="p-4">
+              <h3 class="text-base font-bold text-ink">{p.name}</h3>
+              <p class="mt-0.5 text-sm text-muted">{p.mood}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="reveal mt-9 text-center">
+        <a href="/colors/" class="inline-flex items-center gap-2 rounded-full bg-sun px-7 py-3 text-sm font-semibold text-navy transition-colors hover:bg-sun-deep">
+          Open the Color Visualizer
+          <Icon name="arrow" class="h-4 w-4" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="bg-cream py-16 sm:py-20" aria-labelledby="reviews-heading">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="reveal flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-amber-600">Reviews</p>
+          <h2 id="reviews-heading" class="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl">4.9 Stars. 500+ Happy Clients.</h2>
+        </div>
+        <a href="/reviews/" class="inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors hover:text-amber-600">
+          Read all reviews
+          <Icon name="arrow" class="h-4 w-4" />
+        </a>
+      </div>
+      <div class="reveal mt-9" data-tslider>
+        <div data-ts-track class="tsnap -mx-4 flex gap-6 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0">
+          {testimonials.map((t) => (
+            <div class="w-[85%] shrink-0 sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]">
+              <TestimonialCard name={t.name} role={t.role} avatar={t.avatar} initials={t.initials} quote={t.quote} />
+            </div>
+          ))}
+        </div>
+        <div class="mt-6 flex items-center justify-between gap-4">
+          <div data-ts-dots class="flex items-center gap-2" aria-label="Testimonial pages"></div>
+          <div class="flex gap-2.5">
+            <button type="button" data-ts-prev class="grid h-11 w-11 place-items-center rounded-full border border-line bg-white text-ink transition-colors hover:border-ink" aria-label="Previous testimonials">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 rotate-180" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+            </button>
+            <button type="button" data-ts-next class="grid h-11 w-11 place-items-center rounded-full border border-line bg-white text-ink transition-colors hover:border-ink" aria-label="Next testimonials">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Newsletter />
 </Layout>

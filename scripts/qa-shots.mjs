@@ -42,7 +42,12 @@ const shells = globSync(`${process.env.HOME}/.cache/ms-playwright/chromium_headl
 if (!shells.length) throw new Error('no chromium headless shell found');
 const browser = await chromium.launch({ executablePath: shells[0], args: ['--no-sandbox'] });
 
-const routes = ['/', '/services/', '/services/interior-painting/', '/about/', '/projects/', '/pricing/', '/contact/'];
+const routes = [
+  '/', '/services/', '/services/interior-painting/', '/services/cabinet-painting/',
+  '/about/', '/projects/', '/projects/sunny-family-living-room/', '/pricing/', '/contact/',
+  '/quote/', '/reviews/', '/areas/', '/process/', '/colors/', '/guarantee/',
+  '/blog/', '/blog/paint-color-trends-2026/', '/faq/', '/book/', '/privacy/', '/terms/',
+];
 const widths = [390, 768, 1024, 1440];
 const problems = [];
 
@@ -54,6 +59,24 @@ for (const route of routes) {
     page.on('pageerror', (e) => errors.push(String(e)));
     await page.goto(base + route, { waitUntil: 'networkidle' });
     await page.waitForTimeout(600);
+    // Scroll through the page so ScrollTrigger reveals + lazy images
+    // below the fold actually fire before the full-page capture;
+    // otherwise captureBeyondViewport shows them at opacity 0.
+    await page.evaluate(async () => {
+      await new Promise((resolve) => {
+        let y = 0;
+        const step = () => {
+          y += 450;
+          window.scrollTo(0, y);
+          if (y < document.body.scrollHeight) setTimeout(step, 70);
+          else resolve();
+        };
+        step();
+      });
+    });
+    await page.waitForTimeout(700);
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForTimeout(400);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     const slug = route === '/' ? 'home' : route.replaceAll('/', '_').replace(/^_|_$/g, '');
     await page.screenshot({ path: path.join(outDir, `${slug}-${width}.png`), fullPage: true });

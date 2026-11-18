@@ -16,10 +16,12 @@ const CUTOUT_WIDTHS = {
   'chair-scene-cut': [480, 800, 1200],
   'splash-flat-cut': [640, 1000, 1400, 1720],
 };
-const AVATARS = ['avatar-1', 'avatar-2', 'avatar-3', 'avatar-4'];
+const AVATARS = ['avatar-1', 'avatar-2', 'avatar-3', 'avatar-4', 'avatar-5'];
 const SKIP = new Set(['hero-painter.png', 'chair-scene.png', 'splash-flat.png', 'og.jpg']);
 
-const files = (await readdir(dir)).filter((f) => !SKIP.has(f) && !/-\d{2,}\.(webp|jpg|jpeg|png)$/.test(f));
+const files = (await readdir(dir)).filter(
+  (f) => /\.(jpe?g|png|webp)$/i.test(f) && !SKIP.has(f) && !/-\d{2,}\.(webp|jpg|jpeg|png)$/.test(f),
+);
 let made = 0;
 
 for (const file of files) {

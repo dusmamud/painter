@@ -1,0 +1,22 @@
+---
+interface Props {
+  items: string[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="overflow-hidden bg-sun py-3" aria-label="Our services at a glance">
+  <div class="animate-marquee flex w-max">
+    {([false, true] as const).map((hidden) => (
+      <div class="flex shrink-0 items-center" aria-hidden={hidden ? 'true' : undefined}>
+        {items.map((item) => (
+          <span class="flex items-center whitespace-nowrap">
+            <span class="px-5 text-sm font-bold uppercase tracking-[0.18em] text-navy">{item}</span>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="h-3.5 w-3.5 text-navy/60" aria-hidden="true"><path d="M12 2s6 6.3 6 11a6 6 0 0 1-12 0c0-4.7 6-11 6-11Z" /></svg>
+          </span>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>

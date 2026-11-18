@@ -1,0 +1,129 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Picture from '../../components/Picture.astro';
+import Icon from '../../components/Icon.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+import { site, blogPosts } from '../../data/site';
+
+export function getStaticPaths() {
+  return blogPosts.map((p) => ({ params: { slug: p.slug }, props: { post: p } }));
+}
+
+const { post } = Astro.props;
+const related = blogPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
+const fmtDate = (d: string) => new Date(`${d}T09:00:00-08:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+const postLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.title,
+  description: post.excerpt,
+  image: new URL(post.image, site.url).toString(),
+  datePublished: `${post.date}T09:00:00-08:00`,
+  author: { '@type': 'Person', name: post.author, jobTitle: post.authorRole },
+  publisher: { '@type': 'Organization', '@id': `${site.url}/#business`, name: site.name, url: `${site.url}/` },
+  mainEntityOfPage: `${site.url}/blog/${post.slug}/`,
+  inLanguage: 'en-US',
+};
+---
+
+<Layout
+  title={`${post.title} | Painter Blog`}
+  description={post.excerpt}
+  ogImage={post.image}
+  ogType="article"
+  publishedTime={`${post.date}T09:00:00-08:00`}
+  extraJsonLd={[postLd]}
+>
+  <article class="bg-white py-12 sm:py-16">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb" class="text-sm text-muted">
+        <ol class="flex flex-wrap items-center gap-1.5">
+          <li><a href="/" class="transition-colors hover:text-ink">Home</a></li>
+          <li class="flex items-center gap-1.5"><span aria-hidden="true">/</span><a href="/blog/" class="transition-colors hover:text-ink">Blog</a></li>
+          <li class="flex items-center gap-1.5"><span aria-hidden="true">/</span><span aria-current="page" class="font-medium text-ink">{post.category}</span></li>
+        </ol>
+      </nav>
+
+      <p class="mt-8 text-xs font-semibold uppercase tracking-[0.22em] text-amber-600">{post.category}</p>
+      <h1 class="mt-3 text-3xl font-extrabold leading-[1.12] tracking-tight text-ink sm:text-[2.75rem]">{post.title}</h1>
+      <p class="mt-4 text-base leading-relaxed text-muted sm:text-lg">{post.excerpt}</p>
+      <p class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted">
+        <span class="font-medium text-ink">{post.author}</span>
+        <span>{post.authorRole}</span>
+        <span aria-hidden="true">·</span>
+        <span>{fmtDate(post.date)}</span>
+        <span aria-hidden="true">·</span>
+        <span>{post.readTime} min read</span>
+      </p>
+
+      <div class="mt-8 overflow-hidden rounded-3xl ring-1 ring-line">
+        <Picture
+          src={post.image}
+          alt={post.title}
+          sizes="(max-width: 767px) 92vw, 768px"
+          widths={[480, 800, 1200, 1600]}
+          loading="eager"
+          fetchpriority="high"
+          class="aspect-[16/9] w-full object-cover"
+          pictureClass="block"
+        />
+      </div>
+
+      <div class="mt-10 space-y-8">
+        {post.sections.map((section) => (
+          <section>
+            <h2 class="text-2xl font-bold tracking-tight text-ink">{section.heading}</h2>
+            {section.paragraphs.map((para) => (
+              <p class="mt-3 text-[15px] leading-relaxed text-muted sm:text-base">{para}</p>
+            ))}
+          </section>
+        ))}
+      </div>
+
+      <div class="mt-10 flex flex-wrap items-center gap-3 rounded-3xl bg-cream p-5 ring-1 ring-line">
+        <span class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-sun text-base font-bold text-navy" aria-hidden="true">
+          {post.author.split(' ').map((w) => w[0]).join('')}
+        </span>
+        <p class="min-w-0 flex-1 text-sm leading-relaxed text-muted">
+          <span class="block font-semibold text-ink">{post.author} · {post.authorRole}</span>
+          Part of the Painter crew — painting homes across Paintville and 25+ nearby cities since 2015.
+        </p>
+        <a href="/book/" class="inline-flex shrink-0 items-center gap-2 rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-navy-2">
+          Book a Visit
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <section class="bg-cream py-14 sm:py-16" aria-labelledby="related-heading">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 id="related-heading" class="reveal text-2xl font-bold tracking-tight text-ink sm:text-3xl">Keep Reading</h2>
+      <div class="mt-8 grid gap-6 sm:grid-cols-2">
+        {related.map((p) => (
+          <article class="reveal group overflow-hidden rounded-3xl bg-white ring-1 ring-line transition-shadow duration-300 hover:shadow-[0_20px_45px_-18px_rgba(12,21,38,0.3)]">
+            <a href={`/blog/${p.slug}/`} class="block h-48 overflow-hidden" tabindex="-1" aria-hidden="true">
+              <Picture
+                src={p.image}
+                alt=""
+                sizes="(max-width: 639px) 92vw, 46vw"
+                widths={[480, 800, 1200]}
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                pictureClass="block h-full w-full"
+              />
+            </a>
+            <div class="p-6">
+              <p class="text-xs font-semibold uppercase tracking-wider text-amber-600">{p.category}</p>
+              <h3 class="mt-2.5 text-lg font-bold leading-snug text-ink">
+                <a href={`/blog/${p.slug}/`} class="transition-colors hover:text-amber-600">{p.title}</a>
+              </h3>
+              <p class="mt-4 text-sm text-muted">{p.author} · {fmtDate(p.date)} · {p.readTime} min read</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA />
+</Layout>

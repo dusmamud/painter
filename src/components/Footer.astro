@@ -11,9 +11,9 @@ const socialIcons: Record<string, string> = {
 };
 ---
 
-<footer class="relative overflow-hidden bg-navy text-white/70">
+<footer class="relative overflow-hidden bg-navy text-white/70" data-hide-sticky>
   <div class="relative z-10 mx-auto max-w-7xl px-4 pb-10 pt-14 sm:px-6 lg:px-8">
-    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_0.9fr_1fr_1fr_1.2fr]">
       <div>
         <a href="/" class="flex items-center gap-2" aria-label="Painter — home">
           <span class="grid h-10 w-10 place-items-center rounded-full bg-sun text-navy">
@@ -48,9 +48,24 @@ const socialIcons: Record<string, string> = {
         <ul class="mt-4 space-y-2.5 text-sm">
           <li><a class="transition hover:text-sun" href="/">Home</a></li>
           <li><a class="transition hover:text-sun" href="/services/">Services</a></li>
-          <li><a class="transition hover:text-sun" href="/about/">About Us</a></li>
           <li><a class="transition hover:text-sun" href="/projects/">Projects</a></li>
-          <li><a class="transition hover:text-sun" href="/contact/">Contact</a></li>
+          <li><a class="transition hover:text-sun" href="/pricing/">Pricing</a></li>
+          <li><a class="transition hover:text-sun" href="/reviews/">Reviews</a></li>
+          <li><a class="transition hover:text-sun" href="/quote/">Get a Quote</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Footer explore">
+        <h2 class="text-sm font-semibold uppercase tracking-wider text-white">Explore</h2>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          <li><a class="transition hover:text-sun" href="/about/">About Us</a></li>
+          <li><a class="transition hover:text-sun" href="/process/">Our Process</a></li>
+          <li><a class="transition hover:text-sun" href="/colors/">Color Visualizer</a></li>
+          <li><a class="transition hover:text-sun" href="/areas/">Service Areas</a></li>
+          <li><a class="transition hover:text-sun" href="/guarantee/">Our Guarantee</a></li>
+          <li><a class="transition hover:text-sun" href="/blog/">Blog</a></li>
+          <li><a class="transition hover:text-sun" href="/faq/">FAQ</a></li>
+          <li><a class="transition hover:text-sun" href="/book/">Book a Consultation</a></li>
         </ul>
       </nav>
 

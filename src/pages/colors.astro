@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import ColorVisualizer from '../components/ColorVisualizer.astro';
+import Icon from '../components/Icon.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { palettes } from '../data/site';
+
+const finishes = [
+  { name: 'Matte', sheen: 'No shine', text: 'Velvety and forgiving — hides wall flaws beautifully. Best for bedrooms, living rooms and ceilings.', rooms: 'Bedrooms · Living rooms · Ceilings' },
+  { name: 'Eggshell', sheen: 'Soft glow', text: 'A gentle glow that wipes clean. The all-rounder for busy family spaces.', rooms: 'Hallways · Kids\' rooms · Dining rooms' },
+  { name: 'Satin', sheen: 'Light shine', text: 'Tough, washable and moisture-resistant. The workhorse for wet and high-traffic areas.', rooms: 'Kitchens · Bathrooms · Trim' },
+  { name: 'Semi-Gloss', sheen: 'Noticeable shine', text: 'Maximum durability and a crisp, wipeable finish for woodwork and doors.', rooms: 'Doors · Cabinets · Window trim' },
+];
+---
+
+<Layout
+  title="Color Visualizer & Palettes — Try Paint Colors on a Room | Painter"
+  description="Preview paint colors on a real room before you commit. Pick a swatch, tune the intensity, explore curated palettes and finish guides."
+>
+  <PageHero
+    eyebrow="Color Visualizer"
+    title="Try a Color Before You Commit"
+    description="Pick a swatch and watch the room change. When you find the one, book a free consultation and we'll test it on your own walls."
+  />
+
+  <section class="bg-white py-14 sm:py-16">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div class="reveal">
+        <ColorVisualizer
+          rooms={[
+            { src: '/images/hero-living-room.jpg', alt: 'Bright living room with a mustard-yellow sofa and arc lamp', label: 'Living Room' },
+            { src: '/images/project-bedroom.jpg', alt: 'Calm bedroom with a sage accent wall and soft neutral bedding', label: 'Bedroom' },
+          ]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream py-14 sm:py-16" aria-labelledby="palettes-heading">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="reveal mx-auto max-w-xl text-center">
+        <p class="text-xs font-semibold uppercase tracking-[0.22em] text-amber-600">Curated Palettes</p>
+        <h2 id="palettes-heading" class="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl">Palettes That Always Work</h2>
+        <p class="mt-3 text-base leading-relaxed text-muted">Built by our color consultants — each one tested in real homes, in real light.</p>
+      </div>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {palettes.map((p, i) => (
+          <article class="reveal overflow-hidden rounded-3xl bg-white ring-1 ring-line" data-delay={String((i % 3) * 0.1)}>
+            <div class="flex h-28">
+              {p.colors.map((c) => (
+                <span class="flex-1" style={`background-color: ${c};`} aria-hidden="true"></span>
+              ))}
+            </div>
+            <div class="p-5">
+              <h3 class="text-lg font-bold text-ink">{p.name}</h3>
+              <p class="mt-1 text-sm text-muted">{p.mood} · {p.rooms}</p>
+              <p class="mt-3 flex flex-wrap gap-1.5">
+                {p.colors.map((c) => (
+                  <code class="rounded-md bg-cream px-2 py-1 text-[11px] font-medium text-muted ring-1 ring-line">{c}</code>
+                ))}
+              </p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-14 sm:py-16" aria-labelledby="finish-heading">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="reveal mx-auto max-w-xl text-center">
+        <p class="text-xs font-semibold uppercase tracking-[0.22em] text-amber-600">Finish Guide</p>
+        <h2 id="finish-heading" class="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl">The Right Sheen for Every Room</h2>
+      </div>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {finishes.map((f, i) => (
+          <article class="reveal rounded-3xl bg-white p-6 ring-1 ring-line" data-delay={String(i * 0.08)}>
+            <span class="grid h-12 w-12 place-items-center rounded-2xl bg-sun-soft text-sun-deep">
+              <Icon name="droplet" class="h-6 w-6" />
+            </span>
+            <h3 class="mt-4 text-lg font-bold text-ink">{f.name}</h3>
+            <p class="mt-0.5 text-xs font-semibold uppercase tracking-wider text-amber-600">{f.sheen}</p>
+            <p class="mt-2.5 text-sm leading-relaxed text-muted">{f.text}</p>
+            <p class="mt-3 border-t border-line pt-3 text-xs font-medium text-muted">{f.rooms}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA title="Found Your Color?" text="Book a free consultation — we'll bring large swatches and test them on your walls." />
+</Layout>

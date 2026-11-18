@@ -1,6 +1,6 @@
 # Painter
 
-Painter is a professional painting company based in Paintville, CA, serving 25+ cities. Services: interior painting, exterior painting, commercial painting, and color consultation. 10+ years of experience, 500+ projects, 98% happy customers, 5-year workmanship warranty. Fixed, transparent quotes — no hidden costs.
+Painter is a professional painting company based in Paintville, CA, serving 25+ cities. Services: interior painting, exterior painting, commercial painting, cabinet painting, and color consultation. 10+ years of experience, 500+ projects, 98% happy customers, 5-year workmanship warranty. Fixed, transparent quotes — no hidden costs.
 
 ## Pages
 
@@ -9,10 +9,20 @@ Painter is a professional painting company based in Paintville, CA, serving 25+ 
 - Interior Painting: https://painter-static.pages.dev/services/interior-painting/
 - Exterior Painting: https://painter-static.pages.dev/services/exterior-painting/
 - Commercial Painting: https://painter-static.pages.dev/services/commercial-painting/
+- Cabinet Painting: https://painter-static.pages.dev/services/cabinet-painting/
 - Color Consultation: https://painter-static.pages.dev/services/color-consultation/
 - About Us: https://painter-static.pages.dev/about/
 - Projects: https://painter-static.pages.dev/projects/
 - Pricing: https://painter-static.pages.dev/pricing/
+- Instant Estimate: https://painter-static.pages.dev/quote/
+- Reviews: https://painter-static.pages.dev/reviews/
+- Service Areas: https://painter-static.pages.dev/areas/
+- Our Process: https://painter-static.pages.dev/process/
+- Color Visualizer: https://painter-static.pages.dev/colors/
+- Our Guarantee: https://painter-static.pages.dev/guarantee/
+- Blog: https://painter-static.pages.dev/blog/
+- FAQ: https://painter-static.pages.dev/faq/
+- Book a Consultation: https://painter-static.pages.dev/book/
 - Contact: https://painter-static.pages.dev/contact/
 
 ## Contact

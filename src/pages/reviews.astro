@@ -1,0 +1,83 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { testimonials } from '../data/site';
+
+const bars = [
+  { stars: 5, pct: 92 },
+  { stars: 4, pct: 6 },
+  { stars: 3, pct: 2 },
+  { stars: 2, pct: 0 },
+  { stars: 1, pct: 0 },
+];
+const platforms = [
+  { name: 'Google', rating: '4.9', note: '212 reviews' },
+  { name: 'Yelp', rating: '4.8', note: '96 reviews' },
+  { name: 'HomeAdvisor', rating: '5.0', note: '74 reviews' },
+];
+---
+
+<Layout
+  title="Customer Reviews — 4.9 Stars From 500+ Happy Clients | Painter"
+  description="Read what homeowners and businesses say about Painter: 4.9 stars across 380+ reviews. Real projects, real clients, real finishes."
+>
+  <PageHero
+    eyebrow="Reviews"
+    title="Loved by Homeowners & Businesses"
+    description="4.9 stars across 380+ reviews — and every one of them from a real project. Here is what clients say after the last coat dries."
+  />
+
+  <section class="bg-white py-14 sm:py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="reveal grid items-center gap-8 rounded-3xl bg-cream p-6 ring-1 ring-line sm:p-8 lg:grid-cols-[auto_1fr_auto]">
+        <div class="text-center lg:text-left">
+          <p class="text-6xl font-extrabold tracking-tight text-ink">4.9</p>
+          <p class="mt-2 flex justify-center text-sun lg:justify-start" role="img" aria-label="Rated 4.9 out of 5 stars">
+            <Icon name="star" class="h-5 w-5" />
+            <Icon name="star" class="h-5 w-5" />
+            <Icon name="star" class="h-5 w-5" />
+            <Icon name="star" class="h-5 w-5" />
+            <Icon name="star" class="h-5 w-5" />
+          </p>
+          <p class="mt-2 text-sm text-muted">380+ verified reviews</p>
+        </div>
+        <div class="space-y-2">
+          {bars.map((b) => (
+            <div class="flex items-center gap-3 text-sm">
+              <span class="w-8 shrink-0 font-medium text-ink">{b.stars}★</span>
+              <span class="h-2.5 flex-1 overflow-hidden rounded-full bg-white ring-1 ring-line">
+                <span class="block h-full rounded-full bg-sun" style={`width: ${b.pct}%;`}></span>
+              </span>
+              <span class="w-9 shrink-0 text-right text-muted">{b.pct}%</span>
+            </div>
+          ))}
+        </div>
+        <div class="grid grid-cols-3 gap-3 lg:grid-cols-1">
+          {platforms.map((p) => (
+            <div class="rounded-2xl bg-white px-4 py-3 text-center ring-1 ring-line lg:flex lg:items-center lg:justify-between lg:gap-6 lg:text-left">
+              <span class="block text-sm font-semibold text-ink">{p.name}</span>
+              <span class="mt-0.5 block text-sm text-muted lg:mt-0">{p.rating} ★ · {p.note}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {testimonials.map((t, i) => (
+          <div class="reveal" data-delay={String((i % 3) * 0.1)}>
+            <TestimonialCard name={t.name} role={t.role} avatar={t.avatar} initials={t.initials} quote={t.quote} />
+          </div>
+        ))}
+      </div>
+
+      <p class="reveal mt-10 text-center text-sm text-muted">
+        Worked with us before? We would love to hear from you — <a href="/contact/" class="font-semibold text-ink underline decoration-sun decoration-2 underline-offset-4 hover:text-amber-600">tell us how it went</a>.
+      </p>
+    </div>
+  </section>
+
+  <ContactCTA />
+</Layout>

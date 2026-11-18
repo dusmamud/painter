@@ -1,0 +1,268 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import Faq from '../components/Faq.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { contact, faqs } from '../data/site';
+
+const inputClass =
+  'w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-muted/70 outline-none transition focus:border-sun-deep focus:ring-2 focus:ring-sun/60';
+
+const typePill = (active: boolean) =>
+  `rounded-full px-4 py-2.5 text-sm font-semibold ring-1 ring-line transition ${active ? 'bg-navy text-white' : 'bg-white text-muted hover:text-ink'}`;
+---
+
+<Layout
+  title="Instant Painting Estimate — Get a Price in 60 Seconds | Painter"
+  description="Get an instant ballpark estimate for interior, exterior, cabinet or commercial painting. Pick your project, rooms and finishes — then request a free fixed quote."
+>
+  <PageHero
+    eyebrow="Instant Estimate"
+    title="Your Price in 60 Seconds"
+    description="No waiting, no sales calls. Answer three quick questions for a ballpark range — then request a free fixed quote and we'll confirm it after a quick visit."
+  />
+
+  <section class="bg-white py-14 sm:py-16">
+    <div class="mx-auto grid max-w-7xl items-start gap-8 px-4 sm:px-6 lg:grid-cols-5 lg:gap-10 lg:px-8">
+      <div class="reveal rounded-3xl bg-white p-6 ring-1 ring-line shadow-[0_18px_45px_-18px_rgba(12,21,38,0.25)] sm:p-8 lg:col-span-3" data-quote-calc>
+        <h2 class="text-xl font-bold text-ink">Tell us about your project</h2>
+
+        <fieldset class="mt-6">
+          <legend class="text-sm font-semibold text-ink">Project type</legend>
+          <div class="mt-3 flex flex-wrap gap-2" role="radiogroup" aria-label="Project type">
+            <button type="button" data-q-type="interior" role="radio" aria-checked="true" class={typePill(true)}>Interior</button>
+            <button type="button" data-q-type="exterior" role="radio" aria-checked="false" class={typePill(false)}>Exterior</button>
+            <button type="button" data-q-type="cabinet" role="radio" aria-checked="false" class={typePill(false)}>Cabinets</button>
+            <button type="button" data-q-type="commercial" role="radio" aria-checked="false" class={typePill(false)}>Commercial</button>
+          </div>
+        </fieldset>
+
+        <div data-q-field="interior" class="mt-6">
+          <label class="text-sm font-semibold text-ink" for="q-rooms">Rooms to paint</label>
+          <div class="mt-3 flex items-center gap-3">
+            <button type="button" data-q-step="rooms:-1" class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-line text-lg font-bold text-ink transition hover:border-ink" aria-label="One less room">−</button>
+            <span class="grid h-11 min-w-20 flex-1 place-items-center rounded-xl bg-cream text-base font-bold text-ink sm:max-w-32"><span id="q-rooms" data-q-value="rooms">3 rooms</span></span>
+            <button type="button" data-q-step="rooms:1" class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-line text-lg font-bold text-ink transition hover:border-ink" aria-label="One more room">+</button>
+          </div>
+        </div>
+
+        <div data-q-field="exterior" class="mt-6 hidden">
+          <label class="flex items-center justify-between text-sm font-semibold text-ink" for="q-sqft">
+            Home size <span data-q-value="sqft" class="rounded-full bg-sun-soft px-3 py-1 text-xs font-bold text-navy">1,800 sq ft</span>
+          </label>
+          <input id="q-sqft" data-q-input="sqft" type="range" min="500" max="5000" step="100" value="1800" class="mt-3 h-2 w-full cursor-pointer accent-[#f0b400]" />
+          <div class="mt-1.5 flex justify-between text-xs text-muted"><span>500 sq ft</span><span>5,000 sq ft</span></div>
+        </div>
+
+        <div data-q-field="cabinet" class="mt-6 hidden">
+          <label class="text-sm font-semibold text-ink" for="q-doors">Cabinet doors &amp; drawers</label>
+          <div class="mt-3 flex items-center gap-3">
+            <button type="button" data-q-step="doors:-1" class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-line text-lg font-bold text-ink transition hover:border-ink" aria-label="Two fewer doors">−</button>
+            <span class="grid h-11 min-w-20 flex-1 place-items-center rounded-xl bg-cream text-base font-bold text-ink sm:max-w-32"><span id="q-doors" data-q-value="doors">18 doors</span></span>
+            <button type="button" data-q-step="doors:1" class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-line text-lg font-bold text-ink transition hover:border-ink" aria-label="Two more doors">+</button>
+          </div>
+        </div>
+
+        <fieldset class="mt-6" data-q-field="quality">
+          <legend class="text-sm font-semibold text-ink">Paint quality</legend>
+          <div class="mt-3 grid grid-cols-3 gap-2" role="radiogroup" aria-label="Paint quality">
+            <button type="button" data-q-quality="1" role="radio" aria-checked="true" class="rounded-2xl bg-navy px-3 py-3 text-center text-sm font-semibold text-white ring-1 ring-line transition">Good<span class="block text-xs font-normal opacity-70">Standard</span></button>
+            <button type="button" data-q-quality="1.25" role="radio" aria-checked="false" class="rounded-2xl bg-white px-3 py-3 text-center text-sm font-semibold text-muted ring-1 ring-line transition hover:text-ink">Better<span class="block text-xs font-normal opacity-70">+25%</span></button>
+            <button type="button" data-q-quality="1.5" role="radio" aria-checked="false" class="rounded-2xl bg-white px-3 py-3 text-center text-sm font-semibold text-muted ring-1 ring-line transition hover:text-ink">Best<span class="block text-xs font-normal opacity-70">+50%</span></button>
+          </div>
+        </fieldset>
+
+        <fieldset class="mt-6" data-q-field="extras">
+          <legend class="text-sm font-semibold text-ink">Extras</legend>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <label class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm font-medium text-ink transition has-checked:border-sun-deep has-checked:bg-sun-soft">
+              <input type="checkbox" data-q-extra="120" class="h-4 w-4 accent-[#f0b400]" /> Ceilings +$120
+            </label>
+            <label class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm font-medium text-ink transition has-checked:border-sun-deep has-checked:bg-sun-soft">
+              <input type="checkbox" data-q-extra="180" class="h-4 w-4 accent-[#f0b400]" /> Trim &amp; doors +$180
+            </label>
+            <label class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm font-medium text-ink transition has-checked:border-sun-deep has-checked:bg-sun-soft">
+              <input type="checkbox" data-q-extra="150" class="h-4 w-4 accent-[#f0b400]" /> Wall repairs +$150
+            </label>
+            <label class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm font-medium text-ink transition has-checked:border-sun-deep has-checked:bg-sun-soft">
+              <input type="checkbox" data-q-eco class="h-4 w-4 accent-[#f0b400]" /> Zero-VOC eco paint +10%
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="mt-8 rounded-3xl bg-navy p-6 text-white sm:p-7" aria-live="polite">
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">Your ballpark estimate</p>
+          <p data-q-output class="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">$670 – $860</p>
+          <p data-q-note class="mt-2 text-sm leading-relaxed text-white/70">3 rooms · Good paint · interior project. Final fixed quote after a free visit.</p>
+          <p class="mt-4 border-t border-white/10 pt-4 text-xs leading-relaxed text-white/50">
+            Ballpark only — every home is different. Your free visit locks in a fixed written price with no hidden costs.
+          </p>
+        </div>
+      </div>
+
+      <div class="reveal lg:col-span-2" data-delay="0.1">
+        <form
+          data-mailto-form
+          data-mailto={contact.email}
+          data-subject="Estimate request from painter-static.pages.dev"
+          class="rounded-3xl bg-cream p-6 ring-1 ring-line sm:p-7"
+          novalidate
+        >
+          <h2 class="text-xl font-bold text-ink">Get your fixed quote</h2>
+          <p class="mt-1.5 text-sm leading-relaxed text-muted">We reply within one business day with next steps.</p>
+          <input type="hidden" name="estimate" data-q-hidden value="Ballpark $670 – $860 · 3 rooms · Good paint · interior" />
+          <div class="mt-5 space-y-4">
+            <div>
+              <label for="e-name" class="mb-1.5 block text-sm font-medium text-ink">Your name *</label>
+              <input id="e-name" name="name" type="text" required autocomplete="name" placeholder="Jane Smith" class={inputClass} />
+            </div>
+            <div>
+              <label for="e-phone" class="mb-1.5 block text-sm font-medium text-ink">Phone *</label>
+              <input id="e-phone" name="phone" type="tel" required autocomplete="tel" placeholder="+1 234 567 8900" class={inputClass} />
+            </div>
+            <div>
+              <label for="e-email" class="mb-1.5 block text-sm font-medium text-ink">Email</label>
+              <input id="e-email" name="email" type="email" autocomplete="email" placeholder="jane@example.com" class={inputClass} />
+            </div>
+            <div>
+              <label for="e-notes" class="mb-1.5 block text-sm font-medium text-ink">Anything else?</label>
+              <textarea id="e-notes" name="notes" rows="3" placeholder="Colors in mind? A deadline? Tell us here." class={`${inputClass} resize-y`}></textarea>
+            </div>
+          </div>
+          <button type="submit" class="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-sun px-6 py-3.5 text-sm font-semibold text-navy transition hover:bg-sun-deep">
+            Request My Fixed Quote
+            <Icon name="arrow" class="h-4 w-4" />
+          </button>
+          <p class="mt-4 text-center text-sm text-muted">
+            Prefer to talk? <a href={contact.phoneHref} class="font-semibold text-ink underline decoration-sun decoration-2 underline-offset-4 hover:text-amber-600">{contact.phoneDisplay}</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream py-14 sm:py-16" aria-labelledby="faq-heading">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="reveal text-center">
+        <p class="text-xs font-semibold uppercase tracking-[0.22em] text-amber-600">Good To Know</p>
+        <h2 id="faq-heading" class="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl">Pricing Questions, Answered</h2>
+      </div>
+      <div class="reveal mt-8">
+        <Faq faqs={faqs.slice(0, 3)} />
+      </div>
+      <p class="reveal mt-6 text-center text-sm text-muted">
+        More questions? <a href="/faq/" class="font-semibold text-ink underline decoration-sun decoration-2 underline-offset-4 hover:text-amber-600">Read the full FAQ</a>
+      </p>
+    </div>
+  </section>
+
+  <ContactCTA />
+</Layout>
+
+<script>
+  const root = document.querySelector('[data-quote-calc]');
+  if (root) {
+    const state = { type: 'interior', rooms: 3, sqft: 1800, doors: 18, quality: 1, extras: 0, eco: false };
+    const output = root.querySelector('[data-q-output]');
+    const note = root.querySelector('[data-q-note]');
+    const hidden = document.querySelector<HTMLInputElement>('[data-q-hidden]');
+    const qualityNames: Record<string, string> = { '1': 'Good', '1.25': 'Better', '1.5': 'Best' };
+    const fmt = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`;
+
+    const compute = () => {
+      let base = 0;
+      let unit = '';
+      if (state.type === 'interior') { base = state.rooms * 249; unit = `${state.rooms} room${state.rooms > 1 ? 's' : ''}`; }
+      if (state.type === 'exterior') { base = state.sqft * 1.1; unit = `${state.sqft.toLocaleString('en-US')} sq ft`; }
+      if (state.type === 'cabinet') { base = 899 + state.doors * 45; unit = `${state.doors} doors & drawers`; }
+      if (state.type === 'commercial') {
+        if (output) output.textContent = 'Custom quote';
+        if (note) note.textContent = 'Commercial projects are priced per site — tell us about your space and we will quote within one business day.';
+        if (hidden) hidden.value = 'Commercial project — custom quote requested';
+        return;
+      }
+      const total = (base + state.extras) * state.quality * (state.eco ? 1.1 : 1);
+      const low = Math.round((total * 0.9) / 10) * 10;
+      const high = Math.round((total * 1.15) / 10) * 10;
+      if (output) output.textContent = `${fmt(low)} – ${fmt(high)}`;
+      const summary = `${unit} · ${qualityNames[String(state.quality)]} paint · ${state.type} project${state.eco ? ' · zero-VOC' : ''}`;
+      if (note) note.textContent = `${summary}. Final fixed quote after a free visit.`;
+      if (hidden) hidden.value = `Ballpark ${fmt(low)} – ${fmt(high)} · ${summary}`;
+    };
+
+    const showField = (type: string) => {
+      root.querySelectorAll('[data-q-field]').forEach((el) => {
+        const key = (el as HTMLElement).dataset.qField ?? '';
+        const show = key === type || key === 'quality' || (key === 'extras' && type !== 'commercial');
+        el.classList.toggle('hidden', !show);
+      });
+    };
+    root.querySelectorAll<HTMLButtonElement>('[data-q-type]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.type = btn.dataset.qType ?? 'interior';
+        root.querySelectorAll('[data-q-type]').forEach((b) => {
+          const active = b === btn;
+          b.setAttribute('aria-checked', String(active));
+          b.classList.toggle('bg-navy', active);
+          b.classList.toggle('text-white', active);
+          b.classList.toggle('bg-white', !active);
+          b.classList.toggle('text-muted', !active);
+        });
+        showField(state.type);
+        compute();
+      });
+    });
+
+    root.querySelectorAll<HTMLButtonElement>('[data-q-step]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const [key, delta] = (btn.dataset.qStep ?? '').split(':');
+        const step = key === 'doors' ? 2 : 1;
+        const next = (state as Record<string, number>)[key] + Number(delta) * step;
+        const clamped = key === 'rooms' ? Math.min(10, Math.max(1, next)) : Math.min(60, Math.max(4, next));
+        (state as Record<string, number>)[key] = clamped;
+        const label = root.querySelector(`[data-q-value="${key}"]`);
+        if (label) label.textContent = key === 'rooms' ? `${clamped} room${clamped > 1 ? 's' : ''}` : `${clamped} doors`;
+        compute();
+      });
+    });
+
+    root.querySelector<HTMLInputElement>('[data-q-input="sqft"]')?.addEventListener('input', (e) => {
+      state.sqft = Number((e.target as HTMLInputElement).value);
+      const label = root.querySelector('[data-q-value="sqft"]');
+      if (label) label.textContent = `${state.sqft.toLocaleString('en-US')} sq ft`;
+      compute();
+    });
+
+    root.querySelectorAll<HTMLButtonElement>('[data-q-quality]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.quality = Number(btn.dataset.qQuality ?? 1);
+        root.querySelectorAll('[data-q-quality]').forEach((b) => {
+          const active = b === btn;
+          b.setAttribute('aria-checked', String(active));
+          b.classList.toggle('bg-navy', active);
+          b.classList.toggle('text-white', active);
+          b.classList.toggle('bg-white', !active);
+          b.classList.toggle('text-muted', !active);
+        });
+        compute();
+      });
+    });
+
+    root.querySelectorAll<HTMLInputElement>('[data-q-extra]').forEach((box) => {
+      box.addEventListener('change', () => {
+        state.extras = Array.from(root.querySelectorAll<HTMLInputElement>('[data-q-extra]:checked')).reduce(
+          (sum, b) => sum + Number(b.dataset.qExtra ?? 0), 0,
+        );
+        compute();
+      });
+    });
+    root.querySelector<HTMLInputElement>('[data-q-eco]')?.addEventListener('change', (e) => {
+      state.eco = (e.target as HTMLInputElement).checked;
+      compute();
+    });
+
+    showField('interior');
+    compute();
+  }
+</script>
