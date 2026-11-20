@@ -71,3 +71,8 @@ html[data-menu-open] #sticky-cta { transform: translateY(100%); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
+
+/* Visible keyboard focus everywhere (WCAG 2.4.7): individual controls
+   carry their own focus styles, but a global rule keeps focus visible
+   on every link, button and input, including future ones. */
+:focus-visible { outline: 2px solid var(--color-sun-deep, #f0b400); outline-offset: 2px; }

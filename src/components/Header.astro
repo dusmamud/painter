@@ -70,6 +70,9 @@ const moreActive = moreLinks.some((l) => isActive(l.href));
     </nav>
 
     <div class="flex items-center gap-2.5 sm:gap-3">
+      <a href="/search/" aria-label="Search the site" class="grid h-11 w-11 place-items-center rounded-full border border-line text-ink transition-colors hover:border-ink">
+        <Icon name="search" class="h-4 w-4" />
+      </a>
       <a
         href={contact.phoneHref}
         aria-label={`Call Painter at ${contact.phoneDisplay}`}

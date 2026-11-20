@@ -1,0 +1,119 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { services, projects, blogPosts, areas } from '../data/site';
+
+const staticPages = [
+  { title: 'Home', kind: 'Page', text: 'We paint spaces. You live better.', href: '/' },
+  { title: 'Services', kind: 'Page', text: 'Interior, exterior, commercial, cabinet painting and color consultation.', href: '/services/' },
+  { title: 'Pricing', kind: 'Page', text: 'Transparent starting prices for every service.', href: '/pricing/' },
+  { title: 'Instant Estimate', kind: 'Page', text: 'Your price in 60 seconds — interactive calculator.', href: '/quote/' },
+  { title: 'Reviews', kind: 'Page', text: '4.9 stars from 380+ verified reviews.', href: '/reviews/' },
+  { title: 'Our Process', kind: 'Page', text: 'From quote to flawless finish in 5 steps.', href: '/process/' },
+  { title: 'Color Visualizer', kind: 'Page', text: 'Try a color before you commit.', href: '/colors/' },
+  { title: 'Our Guarantee', kind: 'Page', text: '5-year workmanship warranty on every job.', href: '/guarantee/' },
+  { title: 'Gallery', kind: 'Page', text: 'Recent work, filterable by job type.', href: '/gallery/' },
+  { title: 'Our Team', kind: 'Page', text: 'Meet the people behind the paint.', href: '/team/' },
+  { title: 'Careers', kind: 'Page', text: 'Join the crew — painters and apprentices wanted.', href: '/careers/' },
+  { title: 'About Us', kind: 'Page', text: 'Painters who treat your home like their own.', href: '/about/' },
+  { title: 'Service Areas', kind: 'Page', text: 'Paintville and 7 nearby towns.', href: '/areas/' },
+  { title: 'Book a Consultation', kind: 'Page', text: 'Pick a day and time that suits you.', href: '/book/' },
+  { title: 'Contact', kind: 'Page', text: 'Call, text or email — replies within one business day.', href: '/contact/' },
+  { title: 'FAQ', kind: 'Page', text: 'Pricing, timing, furniture and more, answered.', href: '/faq/' },
+  { title: 'Blog', kind: 'Page', text: 'Paint tips and color ideas, monthly.', href: '/blog/' },
+];
+
+const entries = [
+  ...services.map((s) => ({ title: s.title, kind: 'Service', text: s.short, href: `/services/${s.slug}/` })),
+  ...projects.map((p) => ({ title: p.title, kind: `${p.category} project`, text: p.blurb, href: `/projects/${p.slug}/` })),
+  ...blogPosts.map((b) => ({ title: b.title, kind: 'Blog', text: b.excerpt, href: `/blog/${b.slug}/` })),
+  ...areas.map((a) => ({ title: `Painters in ${a.town}`, kind: 'Service area', text: `${a.jobs}+ jobs completed in ${a.town} — ${a.note}`, href: `/areas/${a.slug}/` })),
+  ...staticPages,
+];
+
+const popular = ['cabinet', 'pricing', 'interior', 'Maplewood', 'guarantee'];
+---
+
+<Layout
+  title="Search — Find a Service, Project or Answer | Painter"
+  description="Search the Painter site — services, projects, blog posts, service areas and answers, all in one place."
+  robots="noindex, nofollow"
+>
+  <PageHero
+    eyebrow="Search"
+    title="Find It in Seconds"
+    description="Services, projects, color ideas, towns we serve and answers — type a few letters and jump straight there."
+  />
+
+  <section class="bg-white py-14 sm:py-16">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="reveal relative">
+        <Icon name="search" class="pointer-events-none absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-muted" />
+        <input
+          id="search-input"
+          type="search"
+          autocomplete="off"
+          placeholder="Try “cabinet”, “pricing”, “Maplewood”…"
+          aria-label="Search the site"
+          class="h-14 w-full rounded-full border border-line bg-cream pl-13 pr-5 text-base text-ink placeholder:text-muted focus:border-sun-deep focus:outline-none"
+        />
+      </div>
+      <div class="reveal mt-5 flex flex-wrap items-center gap-2">
+        <span class="text-sm font-medium text-muted">Popular:</span>
+        {popular.map((q) => (
+          <button type="button" data-search-chip={q} class="rounded-full border border-line bg-white px-4 py-2.5 text-sm font-medium text-muted transition hover:border-ink hover:text-ink">
+            {q}
+          </button>
+        ))}
+      </div>
+
+      <p id="search-count" class="mt-8 text-sm text-muted" aria-live="polite"></p>
+      <div id="search-results" class="mt-4 space-y-3"></div>
+    </div>
+  </section>
+
+  <ContactCTA />
+</Layout>
+
+<script type="application/json" id="search-index" set:html={JSON.stringify(entries)} />
+
+<script>
+  const index = JSON.parse(document.getElementById('search-index')?.textContent ?? '[]');
+  const input = document.getElementById('search-input');
+  const results = document.getElementById('search-results');
+  const count = document.getElementById('search-count');
+
+  const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const run = () => {
+    const q = (input.value ?? '').trim().toLowerCase();
+    const hits = q ? index.filter((e) => `${e.title} ${e.text} ${e.kind}`.toLowerCase().includes(q)) : index.slice(0, 8);
+    count.textContent = q ? `${hits.length} result${hits.length === 1 ? '' : 's'} for “${input.value.trim()}”` : 'Browse everything — or type to narrow it down:';
+    if (!hits.length) {
+      results.innerHTML = `<div class="rounded-3xl bg-cream p-6 text-center ring-1 ring-line"><p class="font-semibold text-ink">No matches for “${esc(input.value.trim())}”.</p><p class="mt-1 text-sm text-muted">Try “interior”, “cabinet”, “pricing” or a town name like “Maplewood”.</p></div>`;
+      return;
+    }
+    results.innerHTML = hits
+      .slice(0, 12)
+      .map(
+        (e) => `<a href="${esc(e.href)}" class="flex items-start gap-4 rounded-3xl bg-cream p-5 ring-1 ring-line transition hover:ring-sun-deep">
+          <span class="mt-0.5 shrink-0 rounded-full bg-sun px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-navy">${esc(e.kind)}</span>
+          <span><span class="block font-semibold text-ink">${esc(e.title)}</span><span class="mt-0.5 block text-sm leading-relaxed text-muted">${esc(e.text)}</span></span>
+        </a>`,
+      )
+      .join('');
+  };
+  input?.addEventListener('input', run);
+  document.querySelectorAll('[data-search-chip]').forEach((chip) => {
+    chip.addEventListener('click', () => {
+      input.value = chip.getAttribute('data-search-chip') ?? '';
+      input.focus();
+      run();
+    });
+  });
+  // Deep links (?q=…) are read client-side only — prerendered pages cannot use url.searchParams.
+  const initial = new URLSearchParams(window.location.search).get('q') ?? '';
+  if (initial) input.value = initial;
+  run();
+</script>

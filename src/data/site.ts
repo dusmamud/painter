@@ -16,6 +16,7 @@ export const contact = {
   email: 'hello@painter.com',
   phoneDisplay: '+1 234 567 8900',
   phoneHref: 'tel:+12345678900',
+  smsHref: 'sms:+12345678900',
   hours: 'Mon–Sat, 8am–6pm',
   location: '123 Color Street, Paintville, CA 12345',
   locationShort: 'Paintville, CA',
@@ -44,6 +45,9 @@ export const moreLinks = [
   { label: 'Service Areas', href: '/areas/' },
   { label: 'Our Guarantee', href: '/guarantee/' },
   { label: 'Blog', href: '/blog/' },
+  { label: 'Gallery', href: '/gallery/' },
+  { label: 'Our Team', href: '/team/' },
+  { label: 'Careers', href: '/careers/' },
   { label: 'FAQ', href: '/faq/' },
   { label: 'Book a Consultation', href: '/book/' },
 ];
@@ -510,19 +514,58 @@ export const team = [
     name: 'Mike Turner',
     role: 'Founder & Master Painter',
     avatar: '/images/avatar-2.jpg',
+    years: '10 yrs with Painter',
     bio: 'Mike started painting at 17 and has led 500+ projects. He still inspects every job personally before handover.',
+    fact: 'Still climbs the ladder on every exterior job he leads.',
   },
   {
     name: 'Anna Collins',
     role: 'Color Consultant',
     avatar: '/images/avatar-1.jpg',
+    years: '8 yrs with Painter',
     bio: 'Anna has an eye for light and color. She has built palettes for more than 300 homes — and never repeated one.',
+    fact: 'Once matched a 1920s wallpaper color from a single faded photo.',
   },
   {
     name: 'Leo Martinez',
     role: 'Crew Lead, Exteriors',
     avatar: '/images/avatar-4.jpg',
+    years: '7 yrs with Painter',
     bio: 'Leo runs the exterior crews with military precision. Ladders, lifts, weather windows — he plans them all.',
+    fact: 'Has never missed a weather window — his forecasts beat the apps.',
+  },
+];
+
+export const credentials = [
+  { icon: 'badge-check', label: 'Licensed', value: 'CA License #C-33-10482', note: 'California painting contractor license' },
+  { icon: 'shield', label: 'Insured', value: '$2M liability cover', note: 'Full liability + workers’ compensation' },
+  { icon: 'spray-can', label: 'Lead-Safe Certified', value: 'EPA RRP certified firm', note: 'Safe prep on pre-1978 homes' },
+];
+
+export const jobs = [
+  {
+    title: 'Experienced Painter',
+    type: 'Full-time',
+    location: 'Paintville, CA',
+    pay: '$28–$34 / hour',
+    blurb: 'You can cut in a straight line blindfolded and you take pride in a finish nobody can fault. Lead small jobs from day one.',
+    points: ['2+ years of residential painting', 'Own brushes + sprayer experience a plus', 'Paid overtime, steady year-round work'],
+  },
+  {
+    title: 'Apprentice Painter',
+    type: 'Full-time · training provided',
+    location: 'Paintville, CA',
+    pay: '$20–$24 / hour',
+    blurb: 'No experience needed — just a good attitude and a steady hand. We teach prep, cutting in, spraying and cleanup on real jobs.',
+    points: ['No experience required', 'Paid training with a crew lead mentor', 'Tools provided, room to grow into a painter role'],
+  },
+  {
+    title: 'Crew Lead',
+    type: 'Full-time',
+    location: 'Paintville + nearby towns',
+    pay: '$32–$38 / hour',
+    blurb: 'Run a 3–4 person crew, keep the job on schedule and the client smiling. You plan the day, we handle the paperwork.',
+    points: ['4+ years leading painting crews', 'Driving license + clean record', 'Bonus for on-time, 5-star jobs'],
   },
 ];
 

@@ -47,6 +47,7 @@ const routes = [
   '/about/', '/projects/', '/projects/sunny-family-living-room/', '/pricing/', '/contact/',
   '/quote/', '/reviews/', '/areas/', '/areas/maplewood/', '/process/', '/colors/', '/guarantee/',
   '/blog/', '/blog/paint-color-trends-2026/', '/faq/', '/book/', '/privacy/', '/terms/',
+  '/search/', '/gallery/', '/team/', '/careers/',
 ];
 const widths = [390, 768, 1024, 1440];
 const problems = [];

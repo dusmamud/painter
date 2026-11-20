@@ -139,6 +139,30 @@ check('sticky CTA visible on mobile', await mob.locator('#sticky-cta').isVisible
 await mob.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
 await mob.waitForTimeout(600);
 check('sticky CTA hides near footer', await mob.locator('#sticky-cta').evaluate((el) => el.classList.contains('translate-y-full')));
+
+// Search, gallery, video, sms
+console.log('search + gallery + video');
+await page.goto(base + '/search/', { waitUntil: 'networkidle' });
+await page.locator('#search-input').fill('cabinet');
+await page.waitForTimeout(300);
+const searchHits = await page.locator('#search-results a').count();
+check('search finds cabinet results', searchHits >= 2, `got ${searchHits}`);
+check('search count text updates', (await page.locator('#search-count').innerText()).includes('cabinet'));
+await page.goto(base + '/search/?q=pricing', { waitUntil: 'networkidle' });
+check('search reads ?q= on load', (await page.locator('#search-input').inputValue()) === 'pricing');
+await page.goto(base + '/gallery/', { waitUntil: 'networkidle' });
+await page.locator('[data-filter-btn="Exterior"]').click();
+const galVisible = await page.locator('[data-category]:not(.hidden)').count();
+check('gallery filter shows only exterior', galVisible === 1, `got ${galVisible}`);
+await page.locator('[data-filter-btn="All"]').click();
+check('gallery filter resets to all', (await page.locator('[data-category]:not(.hidden)').count()) === 10);
+await page.goto(base + '/about/', { waitUntil: 'networkidle' });
+check('crew video present on about', (await page.locator('video[src="/videos/crew-at-work.mp4"]').count()) === 1);
+check('crew video autoplays muted loop', await page.locator('video[src="/videos/crew-at-work.mp4"]').evaluate((v) => v.autoplay && v.muted && v.loop));
+check('credentials strip renders', (await page.locator('text=CA License #C-33-10482').count()) === 1);
+await page.goto(base + '/contact/', { waitUntil: 'networkidle' });
+check('sms link on contact', (await page.locator('a[href="sms:+12345678900"]').count()) >= 1);
+check('search button in header', (await page.locator('a[href="/search/"]').count()) >= 1);
 check('no console/page errors anywhere', errors.length === 0, errors.slice(0, 3).join(' | '));
 
 await browser.close();

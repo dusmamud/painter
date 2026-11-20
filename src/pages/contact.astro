@@ -44,6 +44,14 @@ const inputClass =
             <span class="mt-0.5 block text-xs text-muted">{contact.hours}</span>
           </span>
         </a>
+        <a href={contact.smsHref} class="flex items-start gap-4 rounded-3xl bg-cream p-5 ring-1 ring-line transition hover:ring-sun-deep">
+          <span class="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-sun text-navy"><Icon name="chat" class="h-5 w-5" /></span>
+          <span>
+            <span class="block text-sm font-semibold text-ink">Text us</span>
+            <span class="mt-0.5 block text-sm text-muted">{contact.phoneDisplay}</span>
+            <span class="mt-0.5 block text-xs text-muted">Photos welcome — send a picture of the room</span>
+          </span>
+        </a>
         <a href={`mailto:${contact.email}`} class="flex items-start gap-4 rounded-3xl bg-cream p-5 ring-1 ring-line transition hover:ring-sun-deep">
           <span class="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-sun text-navy"><Icon name="mail" class="h-5 w-5" /></span>
           <span>

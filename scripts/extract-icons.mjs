@@ -53,6 +53,7 @@ const MAP = {
   quote: 'quote',
   roller: 'paint-roller',
   ruler: 'ruler',
+  search: 'search',
   shield: 'shield-check',
   smile: 'smile',
   sparkles: 'sparkles',

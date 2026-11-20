@@ -29,6 +29,9 @@ Painter is a professional painting company based in Paintville, CA, serving 25+ 
 - Color Visualizer: https://painter-static.pages.dev/colors/
 - Our Guarantee: https://painter-static.pages.dev/guarantee/
 - Blog: https://painter-static.pages.dev/blog/
+- Gallery: https://painter-static.pages.dev/gallery/
+- Our Team: https://painter-static.pages.dev/team/
+- Careers: https://painter-static.pages.dev/careers/
 - FAQ: https://painter-static.pages.dev/faq/
 - Book a Consultation: https://painter-static.pages.dev/book/
 - Contact: https://painter-static.pages.dev/contact/
